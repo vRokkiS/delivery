@@ -1,0 +1,112 @@
+.preview {
+    position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      
+    /* 1. Исправлено для полного покрытия */
+      width: 100vw; 
+      height: 100vh;
+    
+    /* 2. Самое важное: padding теперь ВКЛЮЧАЕТСЯ в 100vw/100vh */
+    box-sizing: border-box; 
+    
+      /* Дополнительное, но полезное исправление: убираем прокрутку в целом */
+    overflow: hidden;
+
+    /* Остальные стили */
+      
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+      z-index: -2;
+      padding: 25px;
+}
+.preview.show {
+    z-index: 100;
+}
+.two-column-table-wrapper {
+    display: flex; /* Включаем Flexbox для горизонтального расположения */
+    gap: 25px;
+    z-index: 0;
+    width: 100%;
+}
+
+.data-table {
+    flex: 1; /* Каждая таблица занимает 50% ширины */
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #6d6d6d;
+    background-color: #ffffff;
+    padding: 5px 8px;
+    vertical-align: top;
+    font-size: 1em;
+}
+
+.data-table tr:first-child th {
+    /* Стиль для заголовка (Название аттрибута, Значение, Пояснение) */
+    background-color: #54B2DE;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.data-table td:nth-child(1) {
+    width: 20%;
+}
+
+.data-table td:nth-child(3) {
+    width: 20%;
+}
+input[type="checkbox"]::before {
+    content: "Нет";
+    width: 100px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(17, 0, 255);
+    padding: 2px 10px;
+}
+input[type="checkbox"]:checked::before {
+    content: "Да";
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 0, 0);
+    padding: 2px 10px;
+}
+
+.previewControl {
+    margin-top: 25px;
+}
+.closeBtn {
+    padding: 10px 25px;
+    background-color: #E9F8FF;
+    color: #444444;
+    transition: all 0.1s ease;
+    border-radius: 5px;
+    border-bottom: 3px solid #0000002a;
+    height: 50px;
+}
+
+.closeBtn:hover {
+    background-color: #f5a002;
+    color: white;
+}
+
+.closeSaveBtn {
+    margin-left: 25px;
+    padding: 10px;
+    background-color: #54B2DE;
+    color: #fff;
+    transition: all 0.1s ease;
+    border-radius: 5px;
+    border-bottom: 3px solid #0000002a;
+    height: 50px;
+}
+
+.closeSaveBtn:hover {
+    background-color: #f5a002;
+    color: white;
+}
