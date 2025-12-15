@@ -39,51 +39,6 @@ body {
     opacity: 1;
 }
 
-.undoNotification {
-    all: unset;
-    box-sizing: border-box;
-    position: fixed;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 60px;
-    background-color: #5CB85C;
-    color: white;
-    border-radius: 5px;
-    transform: opacity 0.9s ease;
-    z-index: 1000;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-
-.undoNotification:hover, .undoNotification::before {
-    background-color: #4ba34b;
-}
-
-
-.undoNotification::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #a9dba9;
-    transform: translateX(0);
-    transform-origin: left;
-    transition: none;
-    z-index: -1;
-}
-
-.undoNotification.show::before {
-    animation: countdown 3s linear forwards;
-}
-
 @keyframes countdown {
     0% {
         transform: translateX(100%);
@@ -93,12 +48,6 @@ body {
     }
 }
 
-.undoNotification.show {
-    opacity: 1;
-    pointer-events: auto;
-    cursor: pointer;
-    transition: opacity 0.5s ease;
-}
 .preview {
     display: flex;
     width: 100%;

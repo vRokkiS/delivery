@@ -1,3 +1,49 @@
+function pushNotifyCopied() {
+    new Notify({
+        text: 'Код готов!',
+        speed: 200,
+        autotimeout: 1000,
+        position: 'right bottom',
+    })
+}
+
+function pushNotifyLimit() {
+    new Notify({
+        status: 'error',
+        title: 'Достигнут лимит корзины',
+        text: 'Пожалуйста, удалите товар, прежде чем добавлять новый. Лимит - 5!',
+        speed: 200,
+        autotimeout: 1000,
+        position: 'right bottom',
+    })
+}
+
+function pushNotifyGetInfo() {
+    new Notify({
+        status: 'info',
+        title: 'Небольшая инструкция',
+        text: 'Скопируйте строку из реализации или чека и нажмите CTRL+V в любом месте на сайте. Посмотрите инструкцию для более полного понимания работы сайта',
+        speed: 200,
+        autotimeout: 10000,
+        position: 'right bottom',
+    })
+}
+
+let NotifyRestore;
+
+function pushNotifyRestore() {
+    NotifyRestore = new Notify({
+        status: 'warning',
+        title: 'Вернуть?',
+        text: 'Нажмите что бы вернуть',
+        customClass: 'undoNotification',
+        speed: 200,
+        autotimeout: 3000,
+        showCloseButton: false,
+        position: 'right bottom',
+    })
+}
+
 // слушатель на запуск страницы
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,7 +85,7 @@ document.addEventListener('paste', (event) => {
             document.getElementById("shoppingCartInfo").classList.remove('hiddenCart');
             cart.add(clipboardText);
         } else {
-            alert("Пожалуйста, удалите товар из корзины, максимальное количество товаров к доставке через IntraService - 5 позиций");
+            pushNotifyLimit();
         }
         
     } 
@@ -180,6 +226,8 @@ const cart = {
         if (e.target.closest('.undoNotification')) {
             e.preventDefault
             this.restoreLastItem();
+            NotifyRestore.close();
+            document.querySelectorAll('.undoNotification').forEach(el => el.remove());
             return;
         }
 
@@ -193,7 +241,7 @@ const cart = {
         
             this.saveDeletedItem(itemId);
             this.removeItem(itemId);
-            this.showUndoButton();
+            pushNotifyRestore();
         }
 
         if (e.target.closest('.cartItemTD')) {
@@ -213,31 +261,6 @@ const cart = {
 
     saveDeletedItem(element) {
         this.deletedItem = element.outerHTML;
-        this.hideUndoButton();
-    },
-
-    showUndoButton() {
-        this.hideUndoButton();
-        
-        const undoNotification = document.querySelector('.undoNotification');
-        undoNotification.classList.remove('show');
-        void undoNotification.offsetHeight;
-        undoNotification.classList.add('show');
-
-        this.undoTimeout = setTimeout(() => {
-            this.hideUndoButton();
-        }, 3000)
-    },
-
-    hideUndoButton() {
-        const undoNotification = document.querySelector('.undoNotification');
-
-        if (this.undoTimeout) {
-            clearTimeout(this.undoTimeout);
-        }
-        
-        undoNotification.classList.remove('show');
-        this.undoTimeout = null;
     },
 
     restoreLastItem() {
@@ -257,11 +280,11 @@ const cart = {
 
             this.deletedItem = null;
             } else {
-                alert("Пожалуйста, удалите товар из корзины, максимальное количество товаров к доставке через IntraService - 5 позиций");
+                pushNotifyLimit();
             }
         }
 
-        this.hideUndoButton();
+        NotifyRestore.close();
     },
 
     add(clipboardData) {
@@ -563,4 +586,7 @@ function closeSavePreview() {
     
     navigator.clipboard.writeText(createDelivery());
     console.log("успешно скопировал!");    
+    pushNotifyCopied();
 }
+
+
