@@ -1,3 +1,23 @@
+function pushNotifySale() {
+    new Notify({
+        title: 'Реализация',
+        text: 'Товар добавлен!',
+        speed: 200,
+        autotimeout: 1000,
+        position: 'right bottom',
+    })
+}
+
+function pushNotifyDraft() {
+    new Notify({
+        title: 'Чек',
+        text: 'Товар добавлен!',
+        speed: 200,
+        autotimeout: 1000,
+        position: 'right bottom',
+    })
+}
+
 function pushNotifyCopied() {
     new Notify({
         text: 'Код готов!',
@@ -77,17 +97,19 @@ document.addEventListener('paste', (event) => {
     const cartItemsQuantity = document.getElementById("shoppingCart").querySelectorAll('tr').length;
 
     console.log("ITEMS: " + cartItemsQuantity);
-    if (clipboardText.length > 1) {
+    if (clipboardText.length == 23 || clipboardText.length == 19) {
         event.preventDefault(); 
-        console.log('Вставленный текст:', clipboardText);
+        pushNotifyDraft();
         
-        if (cartItemsQuantity <= 5) {
+        if (cartItemsQuantity <= 5 && clipboardText.length == 23) {
             document.getElementById("shoppingCartInfo").classList.remove('hiddenCart');
-            cart.add(clipboardText);
+            cart.add(clipboardText, "draft");
+        } else if (cartItemsQuantity <= 5 && clipboardText.length == 19) {
+            document.getElementById("shoppingCartInfo").classList.remove('hiddenCart');
+            cart.add(clipboardText, "sale");
         } else {
-            pushNotifyLimit();
+           pushNotifyLimit();
         }
-        
     } 
     else {
         console.log('Не то!');
@@ -287,10 +309,10 @@ const cart = {
         NotifyRestore.close();
     },
 
-    add(clipboardData) {
+    add(clipboardData, type) {
         const cartItemsElement = document.querySelector('.cartItems');
 
-        cartItemsElement.insertAdjacentHTML('beforeend', this.create(clipboardData));
+        cartItemsElement.insertAdjacentHTML('beforeend', this.create(clipboardData, type));
 
         const newItem = cartItemsElement.lastElementChild;
 
@@ -323,16 +345,32 @@ const cart = {
         };
     },
 
-    create(data) {
-        return `<tr class="cartItem">
+    create(data, type) {
+        if (data == "draft") {
+return `<tr class="cartItem">
                 <td class="itemArticle cartItemTD">${data[1]}</td>
                 <td class="itemName cartItemTD">${data[2]}</td>
                 <td class="itemCost cartItemTD">${data[9]}</td>
                 <td><input type="text"  class="itemWidth cartItemTD" value="190"></input></td>
                 <td><input type="text"  class="itemHeight" value="80"></input></td>
                 <td><input type="text" class="itemDepth" value="20"></input></td>
+                <th class="itemDelete" data-id="${data[2]}"><img src="media/x.png" height="32px" width="32px"></th>
+            </tr>`
+} else if (data == "sale") {
+return `<tr class="cartItem">
+                <td class="itemArticle cartItemTD">"не требуется"</td>
+                <td class="itemName cartItemTD">${data[1]}</td>
+                <td class="itemCost cartItemTD">${data[6]}</td>
+                <td><input type="text"  class="itemWidth cartItemTD" value="190"></input></td>
+                <td><input type="text"  class="itemHeight" value="80"></input></td>
+                <td><input type="text" class="itemDepth" value="20"></input></td>
                 <th class="itemDelete" data-id="${data[1]}"><img src="media/x.png" height="32px" width="32px"></th>
             </tr>`
+
+} else {
+return 0;
+}
+        
     },
     
     init() {
