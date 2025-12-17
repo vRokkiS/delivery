@@ -1,14 +1,15 @@
 .preview {
-    position: absolute;
+    position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       
-    /* 1. Исправлено для полного покрытия */
+
       width: 100vw; 
       height: 100vh;
+
+    max-width: 100%;
     
-    /* 2. Самое важное: padding теперь ВКЛЮЧАЕТСЯ в 100vw/100vh */
     box-sizing: border-box; 
     
       /* Дополнительное, но полезное исправление: убираем прокрутку в целом */

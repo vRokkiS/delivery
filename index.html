@@ -33,9 +33,6 @@
                     <span for="description">Название заявки</span>
                     <input type="text" placeholder="Просьба доставить телевизор QN80F клиенту на 23.12" id="description">
                 </div>
-            </div>
-            
-            <div class="form-row">
                 <div class="form-group ">
                     <span for="sender">Отправитель</span>
                     <select id="sender">
@@ -49,6 +46,7 @@
                     </select>  
                 </div>
             </div>
+
 
             <div class="form-row">
                 <div class="form-group">
@@ -76,19 +74,26 @@
                     </select>  
                 </div>
             </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <span for="comment">Комментарий к заявке</span>
+                    <input type="text" placeholder="Оставьте комментарии при необходиомсти" id="comment">
+                </div>
+            </div>
             
         </form>
 
         <h2>Позиции к доставке <svg onclick="pushNotifyGetInfo()" class="qa" xmlns="http://www.w3.org/2000/svg" version="1.0" width="64.000000pt" height="64.000000pt" viewBox="0 0 64.000000 64.000000" preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,64.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"><path d="M223 622 c-109 -39 -178 -112 -210 -221 -29 -102 4 -228 82 -306 122 -121 328 -121 450 0 91 92 118 241 64 356 -69 146 -241 223 -386 171z m127 -157 c26 -32 -13 -81 -47 -59 -23 14 -28 41 -13 59 16 19 44 19 60 0z m8 -186 c2 -68 5 -78 23 -82 12 -3 19 -12 17 -19 -6 -18 -150 -18 -156 0 -2 7 5 16 17 19 18 5 21 13 21 64 0 45 -3 59 -14 59 -8 0 -18 5 -21 10 -13 21 8 31 58 28 l52 -3 3 -76z"/></g></svg></h2>
         <div class="shoppingCart"><table id="shoppingCart">
             <thead id="shoppingCartInfo" class="hiddenCart"><tr class="cartHeader">
-                <th class="itemArticle">Артикул</th>
-                <th class="itemName">Название</th>
-                <th class="itemCost">Цена</th>
-                <th class="itemWidth">Ширина</th>
-                <th class="itemHeight">Высота</th>
-                <th class="itemDepth">Глубина</th>
-                <th class="itemDelete"></th>
+                <th><p class="itemArticle">Артикул</p></th>
+                <th><p class="itemName">Название</p></th>
+                <th><p class="itemCost">Цена</p></th>
+                <th><p class="itemWidth">Ширина, см</p></th>
+                <th><p class="itemHeight">Высота, см</p></th>
+                <th><p class="itemDepth">Глубина, см</p></th>
+                <th><p class="itemDelete"></p></th>
             </tr></thead>
             <tbody class="cartItems"></tbody>
         </table></div>
@@ -163,13 +168,22 @@
     </div>
     
     <p id="result"></p>
-    <button class="undoNotification"><h3>Вернуть</h3></button>
 </body>
 </html>
 
 <!-- FOR TESTING
  
-1	QE65Q7F5AUXRU	Телевизор Samsung QE65Q7F5AUXRU	0B103K6Y900303	1,000	шт	1,000	94  990,00	94  990,00	179990	20%	15  831,67	Торговый зал	94  990,00
+DRAFT::
+
+1	EP-T2510NBEGWW	СЗУ Samsung T2510 25Вт USB Type-C без кабеля Быстрая зарядка Черное
+				1,000	шт	1,000	2 990,00	2 990,00	Рудой Георгий Александрович	20%	498,33
+                		Торговый зал			2 990,00				
+
+SALE::
+
+1	Телевизор Samsung QE75QN70FAUXRU	0AJL3K1Y800322	1,000	шт	1,000	169 990,00	169 990,00
+	Рудой Георгий Александрович	20%	28 331,67					169 990,00	10317120/211125/5186716/002	Offline	
+
 
 -->
 

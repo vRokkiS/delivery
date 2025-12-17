@@ -62,8 +62,7 @@ body {
 input[type="text"],
 input[type="textarea"],
 input[type="date"],
-select,
-.cartItemTD {
+select, .cartItemTD {
     background-color: #FAFAFA;
     border-bottom: 3px solid #0000002a;
     height: 50px;
@@ -72,6 +71,9 @@ select,
     border-radius: 5px;
     outline: none;
     transition: border 0.3s ease;
+}
+.cartItem input[type="text"] {
+    margin-left: 20px;
 }
 input[type="text"]:hover,
 input[type="textarea"]:hover,
@@ -90,37 +92,43 @@ select:hover,
 }
 
 #description {
-    width: 960px;
+    width: 40vw;
 }
 #sender {
-    width: 470px;
+    width: 20vw;
 }
 #recipient {
-    width: 470px;
+    width: 20vw;
 }
 #deliveryDate {
-    width: 300px;
+    width: 18vw;
 }
 #deliveryTime {
-    width: 300px;
+    width: 18vw;
+}
+#observer {
+    width: 18vw;
+}
+#comment {
+    width: 50vw;
 }
 .itemArticle {
-    width: 300px;
+    width: 12vw;
 }
 .itemName {
-    width: 700px;
+    width: 35vw;
 }
 .itemCost {
-    width: 240px;
+    width: 12vw;
 }
 .itemWidth {
-    width: 170px;
+    width: 8vw;
 }
 .itemHeight {
-    width: 170px;
+    width: 8vw;
 }
 .itemDepth {
-    width: 170px;
+    width: 8vw;
 }
 tr {
     margin-top: 10px;
@@ -213,7 +221,7 @@ h2 {
     font-weight: bold;
 }
 .hiddenCart {
-    opacity: 0;
+    display: none;
 }
 
 .qa {
@@ -232,4 +240,7 @@ h2 {
 }
 h2 {
     display: flex;
+}
+button * {
+    pointer-events: none;
 }

@@ -38,11 +38,14 @@ function pushNotifyLimit() {
     })
 }
 
+let NotifyInfo;
+
 function pushNotifyGetInfo() {
-    new Notify({
+    NotifyInfo = new Notify({
         status: 'info',
         title: 'Небольшая инструкция',
-        text: 'Скопируйте строку из реализации или чека и нажмите CTRL+V в любом месте на сайте. Посмотрите инструкцию для более полного понимания работы сайта',
+        text: 'Скопируйте строку из реализации или чека и нажмите CTRL+V в любом месте на сайте. Нажмите на уведомление что бы добавить позицию вручную',
+        customClass: 'addManually',
         speed: 200,
         autotimeout: 10000,
         position: 'right bottom',
@@ -96,23 +99,19 @@ document.addEventListener('paste', (event) => {
     const clipboardText = event.clipboardData.getData('text/plain').split("	");
     const cartItemsQuantity = document.getElementById("shoppingCart").querySelectorAll('tr').length;
 
-    console.log("ITEMS: " + cartItemsQuantity);
-    if (clipboardText.length == 23 || clipboardText.length == 19) {
+    if (clipboardText.length > 1) {
         event.preventDefault(); 
-        pushNotifyDraft();
+        console.log('Вставленный текст:', clipboardText);
         
-        if (cartItemsQuantity <= 5 && clipboardText.length == 23) {
+        if (cartItemsQuantity <= 5) {
             document.getElementById("shoppingCartInfo").classList.remove('hiddenCart');
-            cart.add(clipboardText, "draft");
-        } else if (cartItemsQuantity <= 5 && clipboardText.length == 19) {
-            document.getElementById("shoppingCartInfo").classList.remove('hiddenCart');
-            cart.add(clipboardText, "sale");
+            cart.add(clipboardText);
         } else {
-           pushNotifyLimit();
+            pushNotifyLimit();
         }
     } 
     else {
-        console.log('Не то!');
+        console.log('Неправильный элемент, размер - ' + clipboardText.length);
     }
 });
 
@@ -245,8 +244,16 @@ const cart = {
     deletedItem: null,
 
     action(e) {
+        if (e.target.closest('.addManually')) {
+            e.preventDefault;
+            NotifyInfo.close();
+            document.querySelectorAll('.addManually').forEach(el => el.remove());
+            document.getElementById("shoppingCartInfo").classList.remove('hiddenCart');
+            cart.add("Название товара	Цена");
+        }
+
         if (e.target.closest('.undoNotification')) {
-            e.preventDefault
+            e.preventDefault;
             this.restoreLastItem();
             NotifyRestore.close();
             document.querySelectorAll('.undoNotification').forEach(el => el.remove());
@@ -309,10 +316,10 @@ const cart = {
         NotifyRestore.close();
     },
 
-    add(clipboardData, type) {
+    add(clipboardData) {
         const cartItemsElement = document.querySelector('.cartItems');
 
-        cartItemsElement.insertAdjacentHTML('beforeend', this.create(clipboardData, type));
+        cartItemsElement.insertAdjacentHTML('beforeend', this.create(clipboardData));
 
         const newItem = cartItemsElement.lastElementChild;
 
@@ -345,31 +352,39 @@ const cart = {
         };
     },
 
-    create(data, type) {
-        if (data == "draft") {
-return `<tr class="cartItem">
-                <td class="itemArticle cartItemTD">${data[1]}</td>
-                <td class="itemName cartItemTD">${data[2]}</td>
-                <td class="itemCost cartItemTD">${data[9]}</td>
-                <td><input type="text"  class="itemWidth cartItemTD" value="190"></input></td>
-                <td><input type="text"  class="itemHeight" value="80"></input></td>
-                <td><input type="text" class="itemDepth" value="20"></input></td>
-                <th class="itemDelete" data-id="${data[2]}"><img src="media/x.png" height="32px" width="32px"></th>
-            </tr>`
-} else if (data == "sale") {
-return `<tr class="cartItem">
-                <td class="itemArticle cartItemTD">"не требуется"</td>
-                <td class="itemName cartItemTD">${data[1]}</td>
-                <td class="itemCost cartItemTD">${data[6]}</td>
-                <td><input type="text"  class="itemWidth cartItemTD" value="190"></input></td>
-                <td><input type="text"  class="itemHeight" value="80"></input></td>
-                <td><input type="text" class="itemDepth" value="20"></input></td>
+    create(data) {
+        console.log('data length - ' + data.length);
+        if (data.length == 19) {
+            return `<tr class="cartItem">
+                <td><input type="text"  class="itemArticle cartItemTD" placeholder="Введите артикул вручную"></input></td>
+                <td><input type="text"  class="itemName cartItemTD" value="${data[1]}" disabled></input></td>
+                <td><input type="text"  class="itemCost cartItemTD" value="${data[7].replace(/\s/g, '')}" disabled></input></td>
+                <td><input type="text"  class="itemWidth cartItemTD" placeholder="Введите ширину"></input></td>
+                <td><input type="text"  class="itemHeight cartItemTD" placeholder="Введите высоту"></input></td>
+                <td><input type="text" class="itemDepth cartItemTD" placeholder="Введите глубину"></input></td>
                 <th class="itemDelete" data-id="${data[1]}"><img src="media/x.png" height="32px" width="32px"></th>
             </tr>`
-
-} else {
-return 0;
-}
+        } else if (data.length == 23) {
+            return `<tr class="cartItem">
+                <td><input type="text"  class="itemArticle cartItemTD" value="${data[1]}" disabled></input></td>
+                <td><input type="text"  class="itemName cartItemTD" value="${data[2]}" disabled></input></td>
+                <td><input type="text"  class="itemCost cartItemTD" value="${data[9].replace(/\s/g, '')}" disabled></input></td>
+                <td><input type="text"  class="itemWidth cartItemTD" placeholder="Введите ширину"></input></td>
+                <td><input type="text"  class="itemHeight cartItemTD" placeholder="Введите высоту"></input></td>
+                <td><input type="text" class="itemDepth cartItemTD" placeholder="Введите глубину"></input></td>
+                <th class="itemDelete" data-id="${data[1]}"><img src="media/x.png" height="32px" width="32px"></th>
+            </tr>`
+        } else {
+            return `<tr class="cartItem">
+                <td><input type="text"  class="itemArticle cartItemTD" placeholder="Введите артикул вручную"></input></td>
+                <td><input type="text"  class="itemName cartItemTD" placeholder="Введите наименование вручную"></input></td>
+                <td><input type="text"  class="itemCost cartItemTD" placeholder="Введите цену вручную"></input></td>
+                <td><input type="text"  class="itemWidth cartItemTD" placeholder="Введите ширину"></input></td>
+                <td><input type="text"  class="itemHeight cartItemTD" placeholder="Введите высоту"></input></td>
+                <td><input type="text" class="itemDepth cartItemTD" placeholder="Введите глубину"></input></td>
+                <th class="itemDelete" data-id="${data[1]}"><img src="media/x.png" height="32px" width="32px"></th>
+            </tr>`
+        }
         
     },
     
@@ -425,9 +440,9 @@ function createDelivery() {
     if ((document.getElementById("shoppingCart").querySelectorAll('tr').length) > 1) {
         // Груз 1
         let cartRow = document.querySelectorAll('#shoppingCart tr:nth-child(1) td');
-        item1 = `;document.querySelector('#field1657').value = "${cartRow[1].textContent}";
+        item1 = `;document.querySelector('#field1657').value = "${cartRow[1].querySelector('input').value}";
         document.querySelector('#field1658').value = 1;
-        document.querySelector('#field1659').value = "${cartRow[2].textContent}";
+        document.querySelector('#field1659').value = "${cartRow[2].querySelector('input').value}";
         document.querySelector('#field1660').value = 1;
         document.querySelector('#field1661').value = "${cartRow[3].querySelector('input').value}";
         document.querySelector('#field1662').value = "${cartRow[4].querySelector('input').value}";
@@ -438,9 +453,9 @@ function createDelivery() {
     if ((document.getElementById("shoppingCart").querySelectorAll('tr').length) > 2) {
         // Груз 2
         let cartRow = document.querySelectorAll('#shoppingCart tr:nth-child(2) td');
-        item2 = `;document.querySelector('#field1664').value = "${cartRow[1].textContent}";
+        item2 = `;document.querySelector('#field1664').value = "${cartRow[1].querySelector('input').value}";
         document.querySelector('#field1665').value = 1;
-        document.querySelector('#field1666').value = "${cartRow[2].textContent}";
+        document.querySelector('#field1666').value = "${cartRow[2].querySelector('input').value}";
         document.querySelector('#field1667').value = 1;
         document.querySelector('#field1668').value = "${cartRow[3].querySelector('input').value}";
         document.querySelector('#field1669').value = "${cartRow[4].querySelector('input').value}";
@@ -451,9 +466,9 @@ function createDelivery() {
     if ((document.getElementById("shoppingCart").querySelectorAll('tr').length) > 3) {
         // Груз 3
         let cartRow = document.querySelectorAll('#shoppingCart tr:nth-child(3) td');
-        item3 = `;document.querySelector('#field1671').value = "${cartRow[1].textContent}";
+        item3 = `;document.querySelector('#field1671').value = "${cartRow[1].querySelector('input').value}";
         document.querySelector('#field1672').value = 1;
-        document.querySelector('#field1673').value = "${cartRow[2].textContent}";
+        document.querySelector('#field1673').value = "${cartRow[2].querySelector('input').value}";
         document.querySelector('#field1674').value = 1;
         document.querySelector('#field1675').value = "${cartRow[3].querySelector('input').value}";
         document.querySelector('#field1676').value = "${cartRow[4].querySelector('input').value}";
@@ -464,9 +479,9 @@ function createDelivery() {
     if ((document.getElementById("shoppingCart").querySelectorAll('tr').length) > 4) {
         // Груз 4
         let cartRow = document.querySelectorAll('#shoppingCart tr:nth-child(4) td');
-        item4 = `;document.querySelector('#field1678').value = "${cartRow[1].textContent}";
+        item4 = `;document.querySelector('#field1678').value = "${cartRow[1].querySelector('input').value}";
         document.querySelector('#field1679').value = 1;
-        document.querySelector('#field1680').value = "${cartRow[2].textContent}";
+        document.querySelector('#field1680').value = "${cartRow[2].querySelector('input').value}";
         document.querySelector('#field1681').value = 1;
         document.querySelector('#field1682').value = "${cartRow[3].querySelector('input').value}";
         document.querySelector('#field1683').value = "${cartRow[4].querySelector('input').value}";
@@ -477,9 +492,9 @@ function createDelivery() {
     if ((document.getElementById("shoppingCart").querySelectorAll('tr').length) > 5) {
         // Груз 5
         let cartRow = document.querySelectorAll('#shoppingCart tr:nth-child(5) td');
-        item5 = `;document.querySelector('#field1685').value = "${cartRow[1].textContent}";
+        item5 = `;document.querySelector('#field1685').value = "${cartRow[1].querySelector('input').value}";
         document.querySelector('#field1686').value = 1;
-        document.querySelector('#field1687').value = "${cartRow[2].textContent}";
+        document.querySelector('#field1687').value = "${cartRow[2].querySelector('input').value}";
         document.querySelector('#field1688').value = 1;
         document.querySelector('#field1689').value = "${cartRow[3].querySelector('input').value}";
         document.querySelector('#field1690').value = "${cartRow[4].querySelector('input').value}";
@@ -512,6 +527,7 @@ function createDelivery() {
     document.querySelector('#field1650').value = "${document.getElementById("recipient-flat").textContent}";
     document.querySelector('#field1638').value = "${document.getElementById("recipient-fullName").textContent}";
     document.querySelector('#field1639').value = "${document.getElementById("recipient-phoneNumber").textContent}";
+    document.querySelector('#field1653').value = "${document.getElementById("comment").value}";
     document.querySelector('#field1640').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field1641 option[value="${document.getElementById("deliveryTime").value}"]').selected = true;
     ${observer}
