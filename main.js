@@ -351,21 +351,6 @@ const cart = {
             displayValue: false
         });
 
-        /* НЕ НУЖНО??
-        // document.querySelectorAll('номер накладной').forEach(el => {
-        //      el.textContent = document.getElementById('tmzData--sap').value
-        // }
-
-        if (TMZreason == 1) {
-            // document.querySelectorAll('номер заказа').forEach(el => {
-            // el.textContent = document.getElementById('tmzData--crm').value
-            // }
-        } else {
-            // document.querySelectorAll('номер заказа').forEach(el => {
-            // el.textContent = document.getElementById('tmzData--id').value
-            // }
-        } */
-
         const tmzSAP = document.getElementById('tmzData--sap').value;
         let tmzNumber = null;
         if (TMZreason == 1) {
