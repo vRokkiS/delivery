@@ -1,189 +1,546 @@
-<!-- GREAT THANKS FOR ALL LIBRARIES AUTHORS THAT I USED TO MAKE IT HAPPENS -->
-<!-- https://github.com/simple-notify/simple-notify FOR NOTIFICATIONS -->
-
-<!DOCTYPE html>
-<html lang="en">
-    <meta charset="UTF-8">
+<html>
+<head>
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Создание доставки</title>
-    
-    <link rel="stylesheet" href="css/reset.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon.png">
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/tmz.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css" />
-    <script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/preview.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="main.js"></script>
-    <link rel="icon" type="image/png" sizes="32x32" href="media/favicon.png">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
+	<script src="main.js" defer></script>
+	<script src="pdf.js" defer></script>
+	<script src="notify.js" defer></script>
+	<script src="rubles.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="JsBarcode.all.min.js"></script>
+	<script src="https://unpkg.com/imask"></script>
 </head>
 <body>
-    <header>
-        <div class="shopSelect">
-            <h1 id="shopName"></h1>
-            <select id="selectedShop"></select>
-            
-        </div>
-    </header>
-    <main>
-        <h2>Создание заявок на доставку</h2>
-        <form action="">
-            <div class="form-row">
-                <div class="form-group">
-                    <span for="description">Название заявки</span>
-                    <input type="text" placeholder="Просьба доставить телевизор QN80F клиенту на 23.12" id="description">
-                </div>
-                <div class="form-group ">
-                    <span for="sender">Отправитель</span>
-                    <select id="sender">
-                        <option>Клиент</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <span for="recipient">Получатель</span>
-                    <select id="recipient">
-                        <option>Клиент</option>
-                    </select>  
-                </div>
-            </div>
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<symbol id="icon-edit" viewBox="0 0 24 24">
+			<path fill="currentColor" d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5v2H5v14h14v-5z"/><path fill="currentColor" d="M21 7h-4V3h-2v4h-4v2h4v4h2V9h4z"/>
+		</symbol>
+
+		<symbol id="icon-download" viewBox="0 0 24 24">
+			<path fill="currentColor" d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L11 12.15V5q0-.425.288-.712T12 4t.713.288T13 5v7.15l1.875-1.875q.3-.3.713-.288t.712.313q.275.3.288.7t-.288.7l-3.6 3.6q-.15.15-.325.213t-.375.062M6 20q-.825 0-1.412-.587T4 18v-2q0-.425.288-.712T5 15t.713.288T6 16v2h12v-2q0-.425.288-.712T19 15t.713.288T20 16v2q0 .825-.587 1.413T18 20z"/>
+		</symbol>
+		
+		<symbol id="icon-preview" viewBox="0 0 48 48">
+			<g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><path d="M24 36c11.046 0 20-12 20-12s-8.954-12-20-12S4 24 4 24s8.954 12 20 12Z"/><path d="M24 29a5 5 0 1 0 0-10a5 5 0 0 0 0 10Z"/></g>
+		</symbol>
+
+		<symbol id="icon-adress" viewBox="0 0 24 24">
+			<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M19.743 12c.62-2.608.187-5.271-2.054-7.576A7.93 7.93 0 0 0 12 2c-2.134 0-4.18.872-5.689 2.424c-5.526 5.684-.059 13.55 5.092 17.377a.995.995 0 0 0 1.194 0q.704-.522 1.403-1.138"/><path d="M12 12a2 2 0 1 0 0-4a2 2 0 0 0 0 4m4 6.5a1 1 0 0 1-1-1v-2.36l2.25-1.64l2.25 1.64v2.36a1 1 0 0 1-1 1z"/></g>
+		</symbol>
+
+		<symbol id="icon-cart" viewBox="0 0 24 24">
+			<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3.5v17m11.5-11h-17M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6z"/>
+		</symbol>
+
+		<symbol id="icon-data" viewBox="0 0 24 24">
+			<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M7 7h10M7 12h10M7 17h6"/>
+		</symbol>
+
+		<symbol id="icon-fullscreen" viewBox="0 0 16 16">
+			<path fill="currentColor" d="M13 3.5v3a.5.5 0 0 1-1 0V4.71L9.85 6.86a.5.5 0 0 1-.707-.707l2.15-2.15h-1.79a.5.5 0 0 1 0-1h3a.5.5 0 0 1 .351.144l.004.004a.5.5 0 0 1 .144.348v.004zM3.5 9a.5.5 0 0 1 .5.5v1.79l2.15-2.15a.5.5 0 0 1 .707.707l-2.15 2.15h1.79a.5.5 0 0 1 0 1H3.494a.5.5 0 0 1-.497-.499v-3a.5.5 0 0 1 .5-.5z"/><path fill="currentColor" fill-rule="evenodd" d="M0 4.8c0-1.68 0-2.52.327-3.16A3.02 3.02 0 0 1 1.637.33c.642-.327 1.48-.327 3.16-.327h6.4c1.68 0 2.52 0 3.16.327a3.02 3.02 0 0 1 1.31 1.31c.327.642.327 1.48.327 3.16v6.4c0 1.68 0 2.52-.327 3.16a3 3 0 0 1-1.31 1.31c-.642.327-1.48.327-3.16.327h-6.4c-1.68 0-2.52 0-3.16-.327a3 3 0 0 1-1.31-1.31C0 13.718 0 12.88 0 11.2zM4.8 1h6.4c.857 0 1.44 0 1.89.038c.438.035.663.1.819.18c.376.192.682.498.874.874c.08.156.145.38.18.819c.037.45.038 1.03.038 1.89v6.4c0 .857-.001 1.44-.038 1.89c-.036.438-.101.663-.18.819a2 2 0 0 1-.874.874c-.156.08-.381.145-.819.18c-.45.036-1.03.037-1.89.037H4.8c-.857 0-1.44 0-1.89-.037c-.438-.036-.663-.101-.819-.18a2 2 0 0 1-.874-.874c-.08-.156-.145-.381-.18-.82C1 12.64.999 12.06.999 11.2V4.8c0-.856.001-1.44.038-1.89c.036-.437.101-.662.18-.818c.192-.376.498-.682.874-.874c.156-.08.381-.145.819-.18C3.36 1 3.94 1 4.8 1" clip-rule="evenodd"/>
+		</symbol>
+
+		<symbol id="icon-right-mouse" viewBox="0 0 16 16">
+			<path fill="currentColor" fill-rule="evenodd" d="M13 10V6c0-.946 0-1.6-.036-2.12c-.034-.507-.099-.802-.193-1.03a2.98 2.98 0 0 0-1.62-1.62c-.225-.093-.52-.158-1.03-.193c-.516-.035-1.18-.036-2.12-.036s-1.6 0-2.12.036c-.507.035-.802.1-1.03.193a3 3 0 0 0-1.62 1.62c-.093.225-.158.521-.193 1.03c-.035.516-.035 1.17-.035 2.12v4c0 .946 0 1.6.035 2.12c.035.507.1.802.193 1.03c.304.735.89 1.32 1.62 1.62c.225.093.521.158 1.03.193c.516.035 1.17.036 2.12.036s1.6 0 2.12-.036c.507-.035.802-.1 1.03-.193a2.98 2.98 0 0 0 1.62-1.62c.094-.225.158-.521.193-1.03C13 11.604 13 10.94 13 10M2.3 2.47c-.304.735-.304 1.67-.304 3.53v4c0 1.86 0 2.8.304 3.53c.406.98 1.18 1.76 2.16 2.16c.735.304 1.67.304 3.53.304s2.8 0 3.53-.304a3.97 3.97 0 0 0 2.16-2.16c.304-.735.304-1.67.304-3.53V6c0-1.86 0-2.8-.304-3.53A3.97 3.97 0 0 0 11.52.31C10.785.006 9.85.006 7.99.006s-2.8 0-3.53.304A3.97 3.97 0 0 0 2.3 2.47" clip-rule="evenodd" />
+			<path fill="currentColor" d="M12 4c0-1.1-.895-2-2-2H9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z" />
+		</symbol>
+
+		<symbol id="icon-clipboard-paste" viewBox="0 0 14 14">
+			<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M8.5 3.5v-1a1 1 0 0 0-1-1h-1m-2.5 9H1.5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h1m10 4h-5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1M6.75.5h-4.5l.41 1.62a.49.49 0 0 0 .48.38h2.72a.49.49 0 0 0 .48-.38zm1.75 8h3m-3 2h3" stroke-width="1" />
+		</symbol>
+
+		<symbol id="icon-info" viewBox="0 0 24 24">
+			<path fill="currentColor" d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" />
+		</symbol>
+
+		<!--<symbol id="icon-add" viewBox="0 0 24 24">
+			<path fill="currentColor" d="M12 4c4.411 0 8 3.589 8 8s-3.589 8-8 8s-8-3.589-8-8s3.589-8 8-8m0-2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 9h-4V7h-2v4H7v2h4v4h2v-4h4z" />
+		</symbol>-->
+	</svg>
+	
+	<header class="mainHeader deliveryStylesheet">
+		<nav>
+			<a href="#" id="toggleDelivery" class="active" onclick="goTo('delivery')">Создание доставки</a>
+			<a href="#" id="toggleTMZ" style="margin-left: 20px" onclick="goTo('tmz')">Редактор ТМЦ</a>
+		</nav>
+	</header>
+	<main>
+
+<!-- Основной контент -->
+
+		<section class="mainContent">
+
+	<!-- Данные для заполнения доставки -->
+
+			<article id="deliveryData" class="deliveryData" style="margin-bottom: 25px">
+				<h2 style="display: inline-flex; align-items: center; margin-bottom: 20px">
+					<svg width="24" height="24"><use href="#icon-adress"></use></svg>
+					<span style="margin-left: 5px;">Данные для доставки</span>
+				</h2>
+				<section class="deliveryData__table">
+					<div class="deliveryData__row">
+						<fieldset style="width: 820px">
+							<legend><label for="deliveryData--name">Название заявки</label></legend>
+							<input type="text" id="deliveryData--name" placeholder="Просьба доставить 65QN70F клиенту на 12.02" autocomplete="off">
+						</fieldset>
+					</div>
+					<div class="deliveryData__row">
+						<fieldset style="width: 280px">
+							<legend><label for="deliveryData--date">Дата доставки</label></legend>
+							<input type="date" id="deliveryData--date">
+						</fieldset>
+						<fieldset style="width: 520px">
+							<legend><label for="deliveryData--time">Интервал доставки</label></legend>
+							<select id="deliveryData-time">
+								<option value="1956">10:00 - 22:00 (весь день)</option>
+								<option value="1947">10:00 - 13:00 (утро)</option>
+								<option value="1950">10:00 - 16:00 (до 16:00)</option>
+								<option value="1983">13:00 - 16:00 (первая половина дня)</option>
+								<option value="1986">13:00 - 19:00 (середина дня)</option>
+								<option value="2014">16:00 - 19:00 (вторая половина дня)</option>
+								<option value="2017">16:00 - 22:00 (после 16:00)</option>
+								<option value="2028">19:00 - 22:00 (вечер)</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="deliveryData__row">
+						<fieldset style="width: 280px">
+							<legend><label for="deliveryData--sender">Отправитель</label></legend>
+							<select id="deliveryData--sender">
+								<option>Клиент</option>
+							</select>
+						</fieldset>
+						<fieldset style="width: 280px">
+							<legend><label for="deliveryData--recipient">Получатель</label></legend>
+							<select id="deliveryData--recipient">
+								<option>Клиент</option>
+							</select>
+						</fieldset>
+						<fieldset style="width: 220px">
+							<legend><label for="deliveryData--observer">Наблюдатель</label></legend>
+							<select id="deliveryData--observer">
+								<option value="101">Не использовать</option>
+                       		 	<option value="102">Отправитель</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="deliveryData__row">
+						<fieldset  style="width: 820px">
+							<legend><label for="deliveryData--comment">Комментарий к заявке</label></legend>
+							<input type="text" id="deliveryData--comment" placeholder="Оставьте комментарии при необходимости" autocomplete="off">
+						</fieldset>
+					</div>
+				</section>
+			</article>
+
+	<!-- Данные для заполнения ТМЦ -->
+
+			<article id="tmzData" class="tmzData hide" style="margin-bottom: 25px">
+				<h2 style="display: inline-flex; align-items: center; margin-bottom: 20px">
+					<svg width="24" height="24"><use href="#icon-data"></use></svg>
+					<span style="margin-left: 5px;">Данные для акта</span>
+				</h2>
+				<section class="tmzData__table">
+					<div class="tmzData__row">
+						<fieldset style="width: 820px;">
+							<legend><label for="tmzData--reason">Основание</label></legend>
+							<select id="tmzData--reason">
+								<option value="1">CRM-заказ</option>
+								<option value="2">Чек ККМ</option>
+								<option value="3">Реализация</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="tmzData__row tmzData--crm__field">
+						<fieldset style="width: 820px;">
+							<legend><label for="tmzData--crm">Номер заказа CRM</label></legend>
+							<input type="text" id="tmzData--crm" placeholder="4-266-62493" autocomplete="off">
+						</fieldset>
+					</div>
+					<div class="tmzData__row tmzData--id__field">
+						<fieldset style="width: 820px;">
+							<legend><label for="tmzData--id">Номер документа</label></legend>
+							<input type="text" id="tmzData--id" placeholder="SSB25Y000372" autocomplete="off">
+						</fieldset>
+					</div>
+					<div class="tmzData__row tmzData--sap__field">
+						<fieldset style="width: 820px;">
+							<legend><label for="tmzData--sap">Код SAP или Номер заявки в IS</label></legend>
+							<input type="text" maxlength="7" id="tmzData--sap" placeholder="4114255" autocomplete="off">
+						</fieldset>
+					</div>
+				</section>
+			</article>
+
+	<!-- Таблица с товарами к доставке -->
+
+			<article class="cartData">
+				<h2 style="display: inline-flex; align-items: center; margin-bottom: 20px">
+					<svg width="24" height="24"><use href="#icon-cart"></use></svg>
+					<span style="margin-left: 5px;">Товары к доставке</span>
+				</h2>
 
 
-            <div class="form-row">
-                <div class="form-group">
-                    <span for="deliveryDate">Дата доставки</span>
-                    <input type="date" id="deliveryDate" onfocus="this.showPicker()">
-                </div>
-                <div class="form-group">
-                    <span for="deliveryTime">Время доставки</span>
-                    <select id="deliveryTime">
-                        <option value="1956">10:00 - 22:00 (весь день)</option>
-                        <option value="1947">10:00 - 13:00 (утро)</option>
-                        <option value="1950">10:00 - 16:00 (до 16:00)</option>
-                        <option value="1983">13:00 - 16:00 (первая половина дня)</option>
-                        <option value="1986">13:00 - 19:00 (середина дня)</option>
-                        <option value="2014">16:00 - 19:00 (вторая половина дня)</option>
-                        <option value="2017">16:00 - 22:00 (после 16:00)</option>
-                        <option value="2028">19:00 - 22:00 (вечер)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <span for="observer">Наблюдатели</span>
-                    <select id="observer">
-                        <option value="101">Не использовать наблюдателей</option>
-                        <option value="102">Отправитель - наблюдатель</option>
-                    </select>  
-                </div>
-            </div>
+				<table class="cartData__table">
+					<colgroup>
+						<col style="width: 50px;">
+						<col style="width: 150px;">
+						<col style="width: 440px;">
+						<col style="width: 65px;">
+						<col style="width: 110px;">
+						<col style="width: 75px;">
+						<col style="width: 75px;">
+						<col style="width: 75px;">
+					</colgroup>
+					<thead class="cartData__table__header">
+						<tr>
+							<th>№</th>
+							<th>Артикул</th>
+							<th>Наименование</th>
+							<th>Кол-во</th>
+							<th>Цена, ₽</th>
+							<th>Ш, см</th>
+							<th>В, см</th>
+							<th>Г, см</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <span for="comment">Комментарий к заявке</span>
-                    <input type="text" placeholder="Оставьте комментарии при необходиомсти" id="comment">
-                </div>
-            </div>
-            
-        </form>
+				<article class="cartData__empty">
+					<h3 style="margin-bottom: 25px;">Сейчас здесь пусто!</h3>
+					<article>
+						<section class="clipboardTooltip">
+							<svg width="28" height="28"><use href="#icon-clipboard-paste"></use></svg>
+							<h3>CTRL + C, CTRL + V</h3>
+							<p>Скопируйте и вставьте строку из реализации или чека</p>
+						</section>
+						<section class="mouseTooltip">
+							<svg width="28" height="28"><use href="#icon-right-mouse"></use></svg>
+							<h3>ПРАВАЯ КНОПКА МЫШИ</h3>
+							<p>Откройте контекстное меню</p>
+						</section>
+					</article>
+				</article>
+			</article>
 
-        <h2>Позиции к доставке <svg onclick="pushNotifyGetInfo()" class="qa" xmlns="http://www.w3.org/2000/svg" version="1.0" width="64.000000pt" height="64.000000pt" viewBox="0 0 64.000000 64.000000" preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,64.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"><path d="M223 622 c-109 -39 -178 -112 -210 -221 -29 -102 4 -228 82 -306 122 -121 328 -121 450 0 91 92 118 241 64 356 -69 146 -241 223 -386 171z m127 -157 c26 -32 -13 -81 -47 -59 -23 14 -28 41 -13 59 16 19 44 19 60 0z m8 -186 c2 -68 5 -78 23 -82 12 -3 19 -12 17 -19 -6 -18 -150 -18 -156 0 -2 7 5 16 17 19 18 5 21 13 21 64 0 45 -3 59 -14 59 -8 0 -18 5 -21 10 -13 21 8 31 58 28 l52 -3 3 -76z"/></g></svg></h2>
-        <div class="shoppingCart"><table id="shoppingCart">
-            <thead id="shoppingCartInfo" class="hiddenCart"><tr class="cartHeader">
-                <th><p class="itemArticle">Артикул</p></th>
-                <th><p class="itemName">Название</p></th>
-                <th><p class="itemCost">Цена</p></th>
-                <th><p class="itemWidth">Ширина, см</p></th>
-                <th><p class="itemHeight">Высота, см</p></th>
-                <th><p class="itemDepth">Глубина, см</p></th>
-                <th><p class="itemDelete"></p></th>
-            </tr></thead>
-            <tbody class="cartItems"></tbody>
-        </table></div>
+		</section>
 
-        <div class="controlPanel">
-            <button class="btnCreate" onclick="closeSavePreview()">Создать заявку</button>
-            <button class="btnPreview" onclick="showPreview()">Предпросмотр</button>
-            <button class="btnTMZ" style="opacity: 0;" onclick="goToTMZ()">Переключиться на редактор ТМЦ</button>
-        </div>
-    </main>
+<!-- Предпросмотр -->
 
-    <div class="preview" id="preview">
+		<section class="preview">
+			<h2 style="display: inline-flex; align-items: center; margin-bottom: 20px">
+				<svg width="16" height="16"><use href="#icon-preview"></use></svg>
+				<span style="margin-left: 5px;">Предпросмотр</span>
+			</h2>
 
-    <div class="two-column-table-wrapper">
+	<!-- Предпросмотр отправителя - получателя -->
 
-<table class="data-table">
-                  <thead>
-                           <tr>
-                                    <th>Название аттрибута</th>
-                                    <th>Значение</th>
-                                    <th>Пояснение</th>
-                           </tr>
-                  </thead>
-                  <tbody>
-                           <tr><td>Описание</td><td id="descriptionPreview"></td><td>Название заявки в Intra</td></tr>
-                           <tr><td>Срок доставки</td><td id="deadline"></td><td>Указанная дата будет значиться в "СРОК", "ДАТА ОТГРУЗКИ" и "ДАТА ДОСТАВКИ"</td></tr>
-                           <tr><td>Вид доставки</td><td id="field2393"></td><td></td></tr>
-                           <tr><td>ID отправителя</td><td id="sender-id"></td><td>Системное поле</td></tr>
-                           <tr><td>Внешний отправитель</td><td id="field1628"><input type="checkbox" id="sender-external" disabled></td><td>Будет ли отправитель указан как внешний</td></tr>
-                           <tr><td>Наименование отправителя</td><td id="sender-name"></td><td></td></tr>
-                           <tr><td>Индекс отправителя</td><td id="sender-index"></td><td></td></tr>
-                           <tr><td>Регион отправителя</td><td id="sender-region"></td><td></td></tr>
-                           <tr><td>Город отправителя</td><td id="sender-city"></td><td></td></tr>
-                           <tr><td>Улица отправителя</td><td id="sender-street"></td><td></td></tr>
-                           <tr><td>Дом отправителя</td><td id="sender-building"></td><td></td></tr>
-                           <tr><td>Квартира отправителя</td><td id="sender-flat"></td><td></td></tr>
-                  </tbody>
-         </table>
+			<article id="preview__delivery" class="preview__delivery">
+				<section>
+					<h3 style="font-weight: 500; margin-bottom: 15px;">Отправитель</h3>
+					<div style="display: none;">
+						<input type="text" id="deliveryData--sender__id" value="0">
+						<input type="text" id="deliveryData--recipient__id" value="0">
+						<input type="checkbox" id="deliveryData--sender__external" checked>
+						<input type="checkbox" id="deliveryData--recipient__external" checked>
+					</div>
+					<div class="preview__delivery__row">
+						<fieldset style="width: 120px">
+							<legend><label for="deliveryData--sender__index">Индекс</label></legend>
+							<input type="text" id="deliveryData--sender__index" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 220px">
+							<legend><label for="deliveryData--sender__region">Регион</label></legend>
+							<select id="deliveryData--sender__region">
+								<option value="2089">Санкт-Петербург</option>
+								<option value="2136">Ленинградская обл.</option>
+							</select>
+						</fieldset>
+						<fieldset style="width: 280px">
+							<legend><label for="deliveryData--sender__city">Город</label></legend>
+							<input type="text" id="deliveryData--sender__city" value="Санкт-Петербург" autocomplete="off">
+						</fieldset>
+					</div>
+					<div class="preview__delivery__row">
+						<fieldset style="width: 360px">
+							<legend><label for="deliveryData--sender__street">Улица</label></legend>
+							<input type="text" id="deliveryData--sender__street" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 130px">
+							<legend><label for="deliveryData--sender__house">Дом</label></legend>
+							<input type="text" id="deliveryData--sender__house" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 130px">
+							<legend><label for="deliveryData--sender__flat">Квартира</label></legend>
+							<input type="text" id="deliveryData--sender__flat" autocomplete="off">
+						</fieldset>
+					</div>
+					<div class="preview__delivery__row">
+						<fieldset style="width: 360px">
+							<legend><label for="deliveryData--sender__name">ФИО</label></legend>
+							<input type="text" id="deliveryData--sender__name" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 280px">
+							<legend><label for="deliveryData--sender__phone">Телефон</label></legend>
+							<input type="tel" id="deliveryData--sender__phone" autocomplete="off">
+						</fieldset>
+					</div>
+				</section>
 
-         <table class="data-table">
-                  <thead>
-                           <tr>
-                                    <th>Название аттрибута</th>
-                                    <th>Значение</th>
-                                    <th>Пояснение</th>
-                           </tr>
-                  </thead>
-                  <tbody>
-                           <tr><td>ФИО отправителя</td><td id="sender-fullName"></td><td></td></tr>
-                           <tr><td>Телефон отправителя</td><td id="sender-phoneNumber"></td><td></td></tr>
-                           <tr><td>ID получателя</td><td id="recipient-id"></td><td>Системное поле</td></tr>
-                           <tr><td>Внешний получатель</td><td id="field1635"><input type="checkbox" id="recipient-external" disabled checked></td><td>Будет ли получатель указан как внешний</td></tr>
-                           <tr><td>Наименование получателя</td><td id="recipient-name"></td><td></td></tr>
-                           <tr><td>Индекс получателя</td><td id="recipient-index"></td><td></td></tr>
-                           <tr><td>Регион получателя</td><td id="recipient-region"></td><td></td></tr>
-                           <tr><td>Город получателя</td><td id="recipient-city"></td><td></td></tr>
-                           <tr><td>Улица получателя</td><td id="recipient-street"></td><td></td></tr>
-                           <tr><td>Дом получателя</td><td id="recipient-building"></td><td></td></tr>
-                           <tr><td>Квартира получателя</td><td id="recipient-flat"></td><td></td></tr>
-                           <tr><td>ФИО получателя</td><td id="recipient-fullName"></td><td></td></tr>
-                           <tr><td>Телефон получателя</td><td id="recipient-phoneNumber"></td><td></td></tr>
-                           <tr><td>Интервал времени</td><td id="field1641"></td><td></td></tr>
-                  </tbody>
-         </table>
-         
-         
-    </div>
-    <div class="previewControl">
-        <button class="closeBtn" onclick="closePreview()"><h3>Закрыть без сохранения</h3></button>
-        <button class="closeSaveBtn" onclick="closeSavePreview()"><h3>Сохранить в буфер обмена и закрыть</h3></button>
-    </div>
-    </div>
-    
-    <p id="result"></p>
+				<section>
+					<h3 style="font-weight: 500; margin-top: 15px; margin-bottom: 15px;">Получатель</h3>
+					<div class="preview__delivery__row">
+						<fieldset style="width: 120px">
+							<legend><label for="deliveryData--recipient__index">Индекс</label></legend>
+							<input type="text" id="deliveryData--recipient__index" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 220px">
+							<legend><label for="deliveryData--recipient__region">Регион</label></legend>
+							<select id="deliveryData--recipient__region">
+								<option value="2181">Санкт-Петербург</option>
+								<option value="2228">Ленинградская обл.</option>
+							</select>
+						</fieldset>
+						<fieldset style="width: 280px">
+							<legend><label for="deliveryData--recipient__city">Город</label></legend>
+							<input type="text" id="deliveryData--recipient__city" value="Санкт-Петербург" autocomplete="off">
+						</fieldset>
+					</div>
+					<div class="preview__delivery__row">
+						<fieldset style="width: 360px">
+							<legend><label for="deliveryData--recipient__street">Улица</label></legend>
+							<input type="text" id="deliveryData--recipient__street" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 130px">
+							<legend><label for="deliveryData--recipient__house">Дом</label></legend>
+							<input type="text" id="deliveryData--recipient__house" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 130px">
+							<legend><label for="deliveryData--recipient__flat">Квартира</label></legend>
+							<input type="text" id="deliveryData--recipient__flat" autocomplete="off">
+						</fieldset>
+					</div>
+					<div class="preview__delivery__row">
+						<fieldset style="width: 360px">
+							<legend><label for="deliveryData--recipient__name">ФИО</label></legend>
+							<input type="text" id="deliveryData--recipient__name" autocomplete="off">
+						</fieldset>
+						<fieldset style="width: 280px">
+							<legend><label for="deliveryData--recipient__phone">Телефон</label></legend>
+							<input type="text" id="deliveryData--recipient__phone" autocomplete="off">
+						</fieldset>
+					</div>
+				</section>
+			</article>
+
+	<!-- Предпросмотр акта ТМЦ -->
+
+			<article id="tmzPreview" class="hide">
+				<section style="display: flex; flex-direction: column; align-items: flex-end;">
+					<img class="tmzPreviewImage" id="tmzPreviewImage" src="media/preview.jpg" onclick="try { cart.updateTMZ(); } catch (err) { return; }; document.getElementById('pdf--areaFolder').classList.toggle('hide'); document.getElementById('createDocs__btn__download').classList.toggle('hide'); document.body.classList.toggle('modal-open');">
+					<h3 style="display: inline-flex; align-items: center; margin-top: 20px; text-align: right; color: #6b6b6b; font-size: 0.9em;">
+						<svg width="14" height="14"><use href="#icon-fullscreen"></use></svg>
+						<span style="margin-left: 10px;">Нажмите на изображение, что бы открыть предпросмотр акта</span>
+					</h3>
+				</section>
+
+				<div id="pdf--areaFolder" class="pdf--areaFolder hide">
+					<article id="pdf--area" class="pdf--area pdf--fixedHeight">
+						<header class="pdf--mainInformationHeader">
+							<section class="pdf--shipper">
+								<span>Грузоотправитель</span>
+								<div id="i1" class="pdf--line-field pdf--editable" data-caption="(наименование организации-грузоотправителя, ИНН, КПП, адрес, телефон)" >Общество с ограниченной ответственностью "Носимо", ИНН 7701349057, КПП 774950001, телефон: 8 800 700-00-88, 105066, Россия, Москва, ул. Спартаковская, дом № 21, SMSG_СПб_БОЛЬШОЙ_ПРОСПЕКТ</div>
+							</section>
+							<section class="pdf--carrier">
+								<span>Грузоперевозчик</span>
+								<div class="pdf--line-field pdf--editable" data-caption="(наименование организации-грузоперевозчика, ИНН, КПП, адрес, телефон)" >ООО "АВЕРС"</div>
+							</section>
+						</header>
+						
+						<header class="pdf--mainDocumentHeader">
+							<section class="pdf--title">
+								<svg id="barcode"></svg>
+								<h1>АКТ ПЕРЕДАЧИ ТОВАРНО-МАТЕРИАЛЬНЫХ ЦЕННОСТЕЙ</h1>
+							</section>
+							<section class="pdf--documentInfo">
+								<table>
+									<tr style="border-top: 1px solid black;">
+										<td style="border-left: 1px solid black">Номер документа</td>
+										<td>Дата составления</td>
+									</tr>
+									<tr class="pdf--tdNoPadding">
+										<td id="i2" class="pdf--editable soft-pdf--editable" style="border-left: 1px solid black"><div>SSB25Y00000000000003924</div></td>
+										<td id="i3" class="pdf--editable"><div>01.12.2025</div></td>
+									</tr>
+								</table>
+							</section>
+						</header>
+						
+						<section class="pdf--itemsTable">
+							<table>
+								<colgroup>
+							<col style="width: 38px;">  <col style="width: 132px;">  <col style="width: 95px;">  <col style="width: 95px;">  <col style="width: 57px;">  <col style="width: 321px;">  <col style="width: 132px;">  <col style="width: 57px;">  <col style="width: 57px;">  <col style="width: 76px;">  <col style="width: 83px;">  </colgroup>
+								<thead>
+									<tr style="border-top: 1px solid black">
+										<td rowspan="2" style="border-left: 1px solid black">Номер по порядку</td>
+										<td colspan="4">Заказ</td>
+										<td colspan="2">Товар</td>
+										<td rowspan="2">Единица измерения, наименование</td>
+										<td rowspan="2">Количество</td>
+										<td rowspan="2">Цена, руб. коп.</td>
+										<td rowspan="2">Сумма с учетом НДС, руб. коп.</td>
+									</tr>
+									<tr>
+										<td>Номер заказа</td>
+										<td>Номер накладной</td>
+										<td>Поставщик, организация</td>
+										<td>Тип клиента</td>
+										<td>Наименование</td>
+										<td>Артикул</td>
+									</tr>
+									<tr style="font-size: 0.8em;">
+										<td style="border-left: 1px solid black; padding: 0;">1</td>
+										<td style="padding: 2px 0;">2</td>
+										<td style="padding: 0;">3</td>
+										<td style="padding: 0;">4</td>
+										<td style="padding: 0;">5</td>
+										<td style="padding: 0;">6</td>
+										<td style="padding: 0;">7</td>
+										<td style="padding: 0;">8</td>
+										<td style="padding: 0;">9</td>
+										<td style="padding: 0;">10</td>
+										<td style="padding: 0;">11</td>
+									</tr>
+								</thead>
+								<tbody class="pdf--cartItems">
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="8" style="border: none; text-align: right;">Итого:</td>
+										<td id="total-quantity-footer" class="pdf--editable" style="border-left: 1px solid black; padding: 0;"><div id="i4" class="pdf--totalQuantity"></div></td>
+										<td style="padding: 0;">X</td>
+										<td style="padding: 0;" id="total-cost-footer" class="pdf--editable"><div id="i6" class="pdf--totalCost"></div></td>
+									</tr>
+									<tr>
+										<td colspan="8" style="border: none; text-align: right;">Всего по акту:</td>
+										<td id="total-quantity-document" class="pdf--editable" style="border-left: 1px solid black; padding: 0;"><div id="i5" class="pdf--totalQuantity"></div></td>
+										<td style="padding: 0;">X</td>
+										<td style="padding: 0;" id="total-cost-document" class="pdf--editable"><div id="i7" class="pdf--totalCost"></div></td>
+									</tr>
+								</tfoot>
+							</table>
+						</section>
+						<section class="pdf--tableDescription">
+							<section class="pdf--descRow">Акт имеет приложение на <div style="text-align: center; padding-bottom: 3px;" class="pdf--line-field pdf--line pdf--editable" data-caption="">1</div> листах</section>
+							<section class="pdf--descRow">и содержит <div id="i8" style="text-align: center; padding-bottom: 1px;" class="pdf--line-field pdf--line pdf--editable" data-caption="(прописью)"></div> порядковый номер записей</section>
+							<section class="pdf--descRow">Всего отпущено мест <div id="i9" style="text-align: center; padding-bottom: 2px;" class="pdf--line-field pdf--line pdf--editable" data-caption="(прописью)"></div></section>
+							<section class="pdf--descRow">на сумму <div id="i10" style="text-align: center; padding-bottom: 2px;" class="pdf--line-field pdf--line pdf--editable" data-caption="(прописью)"></div> руб. <div class="pdf--line-field pdf--line pdf--editable" style="width: 50px"></div> коп.</section>
+						</section>
+						<section class="pdf--signatures">
+							<section class="pdf--fromWho">
+									<section class="pdf--stringDiv">
+										По доверенности номер <div class="pdf--line-field pdf--line pdf--editable" style="width: 102px;"></div> от <div class="pdf--line-field pdf--line pdf--editable" style="width: 26px;"></div><div class="pdf--line-field pdf--line pdf--editable" style="width: 124px;"></div> года
+									</section>
+									<section class="pdf--stringDiv">
+										выданной
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="(кем, кому (организация, должность, фамилия, и., о.))" style="width: 343px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 100%; margin-top: 10px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 100%; margin-bottom: 25px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										Отпуск груза произвёл
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="должность" style="width: 147px;"></div>
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="подпись" style="width: 41px;"></div>
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="расшифровка подписи" style="width: 120px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										М.П.
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 30px;"></div>
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 116px;"></div>
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 64px;"></div>
+										года
+									</section>
+							</section>
+							<section class="pdf--toWho">
+								<section class="pdf--stringDiv">
+										По доверенности номер
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 102px;"></div>
+										от
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 26px;"></div>
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 124px;"></div>
+										года
+									</section>
+									<section class="pdf--stringDiv">
+										выданной
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="(кем, кому (организация, должность, фамилия, и., о.))" style="width: 343px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 100%; margin-top: 10px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 100%; margin-bottom: 25px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										Груз принял
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="должность" style="width: 147px;"></div> 
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="подпись" style="width: 41px;"></div> 
+										<div class="pdf--line-field pdf--line pdf--editable" data-caption="расшифровка подписи" style="width: 120px;"></div>
+									</section>
+									<section class="pdf--stringDiv">
+										М.П.
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 30px;"></div>
+										<div class="pdf--line-field pdf--line pdf--editable" style="width: 116px;"></div>
+										<div class="pdf--line-field pdf--line pdf--editable"  style="width: 64px;"></div>
+										года
+									</section>
+							</section>
+					</article>
+					<article class="pdf--previewControl">
+						<span style="color: white; font-weight: bold; margin-top: 25px">Что бы закрыть окно предпросмотра - нажмите на фон</span>	
+						<button id="pdf--edit" class="pdf--edit" onclick="document.getElementById('pdf--edit').classList.toggle('active'); makeEditable();">Редактировать вручную</button>
+						<button id="pdf--download" class="pdf--download" onclick="downloadPDF();">Скачать акт PDF</button>
+					</article>		
+				</div>
+
+			</article>
+
+			<article class="createDocs__btn__field">
+				<button id="createDocs__btn__create" class="createDocs__btn__create">
+					<svg width="24" height="24"><use href="#icon-edit"></use></svg>
+					<span style="margin-left: 5px;">Создать заявку</span>
+				</button>
+				<button id="createDocs__btn__download" class="createDocs__btn__download hide" onclick="try { cart.updateTMZ(); } catch (err) { return; }; document.getElementById('pdf--areaFolder').classList.toggle('hide'); document.getElementById('createDocs__btn__download').classList.toggle('hide'); document.body.classList.toggle('modal-open'); downloadPDF()">
+					<svg width="24" height="24"><use href="#icon-download"></use></svg>
+					<span style="margin-left: 5px;">Скачать акт PDF</span>
+				</button>
+			</article>
+
+			<article id="context-menu" class="contextMenu">
+			    <div id="menu-add" class="menuOption">Добавить строку <span class="hotkey">(ctrl + enter)</span></div>
+			    <div id="menu-delete" class="menuOption">Удалить нижнюю строку <span class="hotkey">(ctrl + delete)</span></div>
+				<div id="menu-delete-all" class="menuOption">Удалить выбранное</div>
+				<div id="menu-restore" class="menuOption">Вернуть <span class="hotkey">(ctrl + z)</span></div>
+			</article>
+		</section>
+	</main>
+
 </body>
 </html>
-
-<!-- FOR TESTING
- 
-DRAFT::
-
-1	EP-T2510NBEGWW	СЗУ Samsung T2510 25Вт USB Type-C без кабеля Быстрая зарядка Черное
-				1,000	шт	1,000	2 990,00	2 990,00	Рудой Георгий Александрович	20%	498,33
-                		Торговый зал			2 990,00				
-
-SALE::
-
-1	Телевизор Samsung QE75QN70FAUXRU	0AJL3K1Y800322	1,000	шт	1,000	169 990,00	169 990,00
-	Рудой Георгий Александрович	20%	28 331,67					169 990,00	10317120/211125/5186716/002	Offline	
-
-
--->
-

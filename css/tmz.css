@@ -1,0 +1,238 @@
+body.modal-open {
+    overflow: hidden;
+    padding-right: 17px; 
+}
+
+.pdf--areaFolder {
+    background-color: rgba(20, 20, 20, 0.8);
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pdf--area {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.2);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.pdf--area input[type="text"], input[type="textarea"] {
+    all: unset;
+    border-bottom: 1px solid black;
+}
+
+#pdf--area {
+    width: 1123px;
+    padding: 40px 25px 0px 40px;
+    margin: 0 auto;
+    background: white;
+    box-sizing: border-box;
+}
+
+.pdf--fixedHeight {
+    min-height: 794px;
+    max-height: 794px;
+    overflow-y: auto;
+}
+
+.pdf--area table {
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.pdf--area td {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+.pdf--area div {
+    outline: none;
+}
+.pdf--mainDocumentHeader {
+    margin: 10px 70px 10px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.pdf--mainDocumentHeader td {
+    font-size: 0.6em;
+    padding: 5px 0;
+}
+.pdf--itemsTable tr td {
+    font-size: 0.6em;
+    padding: 5px 0;
+}
+.pdf--totalQuantity, .pdf--totalCost {
+    padding: 5px 0;
+}
+.pdf--tdNoPadding td {
+    padding: 0 !important;
+    height: auto !important;
+}
+.pdf--tdNoPadding td div {
+    padding: 5px 0;
+}
+.pdf--itemsTable th {
+    font-size: 0.8em;
+    font-weight: normal;
+}
+.pdf--mainDocumentHeader td {
+    height: 24px;
+}
+.pdf--documentInfo table {
+    text-align: center;
+}
+
+.pdf--documentInfo table td:nth-child(1) {
+    width: 50mm;
+}
+.pdf--documentInfo table td:nth-child(2) {
+    width: 30mm;
+}
+.pdf--area tfoot tr td:nth-child(3) {
+    font-weight: bold;
+}
+.pdf--area h1 {
+    font-size: 1.2em;
+    margin: 10px 0 0 0;
+}
+#i1 {
+    width: 80%;
+    border-bottom: 1px solid black;
+    display: inline-block;
+    outline: none;
+}
+.pdf--carrier div{
+    width: 80%;
+}
+.pdf--mainInformationHeader {
+    display: flex;
+    flex-direction: column;
+}
+.pdf--mainInformationHeader span {
+    width: 20%;
+    margin-right: 20px;
+}
+.pdf--shipper, .pdf--carrier {
+    display: flex;
+    justify-content: space-between;
+}
+.pdf--carrier {
+    margin-top: 5px;
+}
+
+.pdf--line-field {
+    position: relative;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;           
+    display: inline-block;
+    padding-bottom: 2px;       
+    
+}
+
+.pdf--line-field::after {
+    content: attr(data-caption);
+    position: absolute;
+    bottom: -14px;                 
+    left: 50%;                     
+    transform: translateX(-50%);   
+    font-size: 8pt;                
+    color: black;
+    width: 100%; 
+    text-align: center;
+}
+.pdf--line {
+    display: inline-block;
+}
+.pdf--signatures td {
+    display: flex;
+}
+.pdf--tableDescription td {
+    border: 1px solid black;
+    text-align: left;
+    font-size: 0.8em;
+}
+.pdf--tableDescription .pdf--line-field {
+    width: 400px;
+}
+.pdf--signatures {
+    display: flex;
+    margin-top: 25px;
+}
+.pdf--stringDiv {
+    display: flex;
+    justify-content: space-between;
+}
+.pdf--fromWho .pdf--stringDiv:last-child, .pdf--toWho .pdf--stringDiv:last-child {
+    margin-top: 25px;
+    padding-left: 180px;
+}
+.pdf--toWho {
+    border-left: 2px solid black;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+.pdf--fromWho, .pdf--toWho {
+    width: 48%;
+}
+.pdf--tableDescription div div, .pdf--signatures div {
+    text-align: center;
+}
+.pdf--highlited {
+    background-color: #bde0ff;
+    outline: none;
+}
+.pdf--signatures .pdf--line-field {
+    height: 12px;
+}
+.pdf--descRow {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+}
+.pdf--previewControl {
+    margin-top: 25px;
+}
+.pdf--edit {
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 25px;
+    margin-left: 50px;
+    transition: 0.1s ease;
+    font-weight: bold;
+
+    &:active {
+                scale: 0.99;
+    }
+}
+.pdf--download {
+    margin-left: 25px;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 25px;
+    transition: 0.1s ease;
+    font-weight: bold;
+
+    &:active {
+                scale: 0.99;
+    }
+}
+.pdf--edit:hover {
+    background-color: #005389;
+}
+.pdf--download:hover {
+    background-color: #CC2626;
+}
+.pdf--edit.active {
+    background-color: #0e85d4;
+}
+.pdf--area div.active {
+    background-color: #bfe6ff;
+}
