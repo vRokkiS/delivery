@@ -378,10 +378,16 @@ const cart = {
         const tmzTable = document.querySelector('.pdf--cartItems');
         const tmzItems = document.querySelectorAll('.pdf--item');
 
+        
+
         let totalQuantity = 0;
         let totalCost = 0;
 
         if (tmzItems.length < cartItems.length) {
+        if (tmzTable) {
+                    tmzTable.innerHTML = ''; 
+                }
+
         cartItems.forEach(item => {
             const id = item.querySelector('.input-id').value;
             const article = item.querySelector('.input-article').value;
@@ -407,12 +413,15 @@ const cart = {
 
             tmzTable.insertAdjacentHTML('beforeend', row);
         });
-        }
 
         document.getElementById('i6').textContent = totalCost;
         document.getElementById('i7').textContent = totalCost;
         document.getElementById('i4').textContent = totalQuantity;
         document.getElementById('i5').textContent = totalQuantity;
+
+        }
+
+        
 
         document.getElementById('i8').textContent = numberToWords(document.querySelectorAll('.pdf--item').length);
         document.getElementById('i9').textContent = numberToWords(totalQuantity);
