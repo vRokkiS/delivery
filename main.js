@@ -363,15 +363,10 @@ const cart = {
         const tmzTable = document.querySelector('.pdf--cartItems');
         const tmzItems = document.querySelectorAll('.pdf--item');
 
-        
+        tmzTable.innerHTML = ''; 
 
         let totalQuantity = 0;
-        let totalCost = 0;
-
-        if (tmzItems.length < cartItems.length) {
-        if (tmzTable) {
-                    tmzTable.innerHTML = ''; 
-                }
+        let totalCost = 0;   
 
         cartItems.forEach(item => {
             const id = item.querySelector('.input-id').value;
@@ -403,10 +398,6 @@ const cart = {
         document.getElementById('i7').textContent = totalCost;
         document.getElementById('i4').textContent = totalQuantity;
         document.getElementById('i5').textContent = totalQuantity;
-
-        }
-
-        
 
         document.getElementById('i8').textContent = numberToWords(document.querySelectorAll('.pdf--item').length);
         document.getElementById('i9').textContent = numberToWords(totalQuantity);
