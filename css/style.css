@@ -69,7 +69,17 @@ h2 {
 
     & .deliveryData__row {
         display: flex;
-        gap: 20px
+        gap: 20px;
+    }
+}
+
+.tmzData__table {
+    display: flex;
+    flex-direction: column;
+
+    & .tmzData__row {
+        display: flex;
+        gap: 20px;
     }
 }
 
