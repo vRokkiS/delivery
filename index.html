@@ -162,20 +162,20 @@
 							</select>
 						</fieldset>
 					</div>
-					<div class="tmzData__row">
-						<fieldset style="width: 820px;" class="tmzData--crm__field">
+					<div class="tmzData__row tmzData--crm__field">
+						<fieldset style="width: 820px;">
 							<legend><label for="tmzData--crm">Номер заказа CRM</label></legend>
 							<input type="text" id="tmzData--crm" placeholder="4-266-62493" autocomplete="off">
 						</fieldset>
 					</div>
-					<div class="tmzData__row">
-						<fieldset style="width: 820px;" class="tmzData--id__field">
+					<div class="tmzData__row tmzData--id__field">
+						<fieldset style="width: 820px;">
 							<legend><label for="tmzData--id">Номер документа</label></legend>
 							<input type="text" id="tmzData--id" placeholder="SSB25Y000372" autocomplete="off">
 						</fieldset>
 					</div>
-					<div class="tmzData__row">
-						<fieldset style="width: 820px;" class="tmzData--sap__field">
+					<div class="tmzData__row tmzData--sap__field">
+						<fieldset style="width: 820px;">
 							<legend><label for="tmzData--sap">Код SAP или Номер заявки в IS</label></legend>
 							<input type="text" maxlength="7" id="tmzData--sap" placeholder="4114255" autocomplete="off">
 						</fieldset>
@@ -523,7 +523,7 @@
 			</article>
 
 			<article class="createDocs__btn__field">
-				<button id="createDocs__btn__create" class="createDocs__btn__create">
+				<button id="createDocs__btn__create" class="createDocs__btn__create" onclick="setTimeout(() => { window.open('https://help.inventive.ru/Task/Create?serviceid=766&typeid=1041', '_blank') }, 1000)">
 					<svg width="24" height="24"><use href="#icon-edit"></use></svg>
 					<span style="margin-left: 5px;">Создать заявку</span>
 				</button>
