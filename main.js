@@ -824,31 +824,31 @@ function createDelivery() {
     } else { item5 = `console.log('5 позиции нет')` }
     
     return `
-    document.getElementById('description').textContent = `${document.getElementById("deliveryData--name").value}`;
-    document.getElementById('deadline').value = `${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59`;
+    document.getElementById('description').textContent = "${document.getElementById("deliveryData--name").value}";
+    document.getElementById('deadline').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field2393 option[value="${deliveryType}"]').selected = true;
     document.querySelector('#field1628').checked = ${document.getElementById("deliveryData--sender__external").checked};
     document.querySelector('#field2429').value = "${senderOfficialName}";
     document.querySelector('#field1630').value = "${senderIndex}";
     document.querySelector('#field2412 option[value="${senderRegion}"]').selected = true;
-    document.querySelector('#field1643').value = `${senderCity}`;
-    document.querySelector('#field1644').value = `${senderStreet}`;
-    document.querySelector('#field1645').value = `${senderHouse}`;
-    document.querySelector('#field1646').value = `${senderFlat}`;
-    document.querySelector('#field1631').value = `${senderName}`;
-    document.querySelector('#field1632').value = `${senderPhone}`;
+    document.querySelector('#field1643').value = "${senderCity}";
+    document.querySelector('#field1644').value = "${senderStreet}";
+    document.querySelector('#field1645').value = "${senderHouse}";
+    document.querySelector('#field1646').value = "${senderFlat}";
+    document.querySelector('#field1631').value = "${senderName}";
+    document.querySelector('#field1632').value = "${senderPhone}";
     document.querySelector('#field1633').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field1635').checked = ${document.getElementById("deliveryData--recipient__external").checked};
-    document.querySelector('#field2430').value = `${recipientOfficialName}`;
-    document.querySelector('#field1651').value = `${recipientIndex}`;
+    document.querySelector('#field2430').value = "${recipientOfficialName}";
+    document.querySelector('#field1651').value = "${recipientIndex}";
     document.querySelector('#field2413 option[value="${recipientRegion}"]').selected = true;
-    document.querySelector('#field1647').value = `${recipientCity}`;
-    document.querySelector('#field1648').value = `${recipientStreet}`;
-    document.querySelector('#field1649').value = `${recipientHouse}`;
-    document.querySelector('#field1650').value = `${recipientFlat}`;
-    document.querySelector('#field1638').value = `${recipientName}`;
-    document.querySelector('#field1639').value = `${recipientPhone}`;
-    document.querySelector('#field1653').value = `${document.getElementById(`deliveryData--comment`).value}`;
+    document.querySelector('#field1647').value = "${recipientCity}";
+    document.querySelector('#field1648').value = "${recipientStreet}";
+    document.querySelector('#field1649').value = "${recipientHouse}";
+    document.querySelector('#field1650').value = "${recipientFlat}";
+    document.querySelector('#field1638').value = "${recipientName}";
+    document.querySelector('#field1639').value = "${recipientPhone}";
+    document.querySelector('#field1653').value = "${document.getElementById("deliveryData--comment").value}";
     document.querySelector('#field1640').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field1641 option[value="${document.getElementById("deliveryData-time").value}"]').selected = true;
     ${observer}
