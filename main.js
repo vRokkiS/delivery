@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const futureDate = new Date();
-    futureDate.setDate(futureDate.getDate() + 2);
+    futureDate.setDate(futureDate.getDate() + 1);
     const formattedDate = formatDate(futureDate);
 
     const dateInput = document.getElementById('deliveryData--date');
@@ -766,7 +766,7 @@ function createDelivery() {
     let item1;
     if ((document.querySelectorAll('.cartData__item').length) >= 1) {
         let cartRow = document.querySelector('.cartData__item:nth-child(1)');
-        item1 = `;document.querySelector('#field1657').value = "${cartRow.querySelector('.input-name').value}";
+        item1 = `;document.querySelector('#field1657').value = `${cartRow.querySelector(`.input-name`).value}`;
         document.querySelector('#field1658').value = 1;
         document.querySelector('#field1659').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1660').value = 1;
@@ -778,7 +778,7 @@ function createDelivery() {
     let item2;
     if ((document.querySelectorAll('.cartData__item').length) >= 2) {
         let cartRow = document.querySelector('.cartData__item:nth-child(2)');
-        item2 = `;document.querySelector('#field1664').value = "${cartRow.querySelector('.input-name').value}";
+        item2 = `;document.querySelector('#field1664').value = `${cartRow.querySelector(`.input-name`).value}`;
         document.querySelector('#field1665').value = 1;
         document.querySelector('#field1666').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1667').value = 1;
@@ -790,7 +790,7 @@ function createDelivery() {
     let item3;
     if ((document.querySelectorAll('.cartData__item').length) >= 3) {
         let cartRow = document.querySelector('.cartData__item:nth-child(3)');
-        item3 = `;document.querySelector('#field1671').value = "${cartRow.querySelector('.input-name').value}";
+        item3 = `;document.querySelector('#field1671').value = `${cartRow.querySelector(`.input-name`).value}`;
         document.querySelector('#field1672').value = 1;
         document.querySelector('#field1673').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1674').value = 1;
@@ -802,7 +802,7 @@ function createDelivery() {
     let item4;
     if ((document.querySelectorAll('.cartData__item').length) >= 4) {
         let cartRow = document.querySelector('.cartData__item:nth-child(4)');
-        item4 = `;document.querySelector('#field1678').value = "${cartRow.querySelector('.input-name').value}";
+        item4 = `;document.querySelector('#field1678').value = `${cartRow.querySelector(`.input-name`).value}`;
         document.querySelector('#field1679').value = 1;
         document.querySelector('#field1680').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1681').value = 1;
@@ -814,7 +814,7 @@ function createDelivery() {
     let item5;
     if ((document.querySelectorAll('.cartData__item').length) >= 5) {
         let cartRow = document.querySelector('.cartData__item:nth-child(5)');
-        item5 = `;document.querySelector('#field1685').value = "${cartRow.querySelector('.input-name').value}";
+        item5 = `;document.querySelector('#field1685').value = `${cartRow.querySelector(`.input-name`).value}`;
         document.querySelector('#field1686').value = 1;
         document.querySelector('#field1687').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1688').value = 1;
@@ -824,31 +824,31 @@ function createDelivery() {
     } else { item5 = `console.log('5 позиции нет')` }
     
     return `
-    document.getElementById('description').textContent = "${document.getElementById("deliveryData--name").value}";
-    document.getElementById('deadline').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
+    document.getElementById('description').textContent = `${document.getElementById("deliveryData--name").value}`;
+    document.getElementById('deadline').value = `${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59`;
     document.querySelector('#field2393 option[value="${deliveryType}"]').selected = true;
     document.querySelector('#field1628').checked = ${document.getElementById("deliveryData--sender__external").checked};
     document.querySelector('#field2429').value = "${senderOfficialName}";
     document.querySelector('#field1630').value = "${senderIndex}";
     document.querySelector('#field2412 option[value="${senderRegion}"]').selected = true;
-    document.querySelector('#field1643').value = "${senderCity}";
-    document.querySelector('#field1644').value = "${senderStreet}";
-    document.querySelector('#field1645').value = "${senderHouse}";
-    document.querySelector('#field1646').value = "${senderFlat}";
-    document.querySelector('#field1631').value = "${senderName}";
-    document.querySelector('#field1632').value = "${senderPhone}";
+    document.querySelector('#field1643').value = `${senderCity}`;
+    document.querySelector('#field1644').value = `${senderStreet}`;
+    document.querySelector('#field1645').value = `${senderHouse}`;
+    document.querySelector('#field1646').value = `${senderFlat}`;
+    document.querySelector('#field1631').value = `${senderName}`;
+    document.querySelector('#field1632').value = `${senderPhone}`;
     document.querySelector('#field1633').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field1635').checked = ${document.getElementById("deliveryData--recipient__external").checked};
-    document.querySelector('#field2430').value = "${recipientOfficialName}";
-    document.querySelector('#field1651').value = "${recipientIndex}";
+    document.querySelector('#field2430').value = `${recipientOfficialName}`;
+    document.querySelector('#field1651').value = `${recipientIndex}`;
     document.querySelector('#field2413 option[value="${recipientRegion}"]').selected = true;
-    document.querySelector('#field1647').value = "${recipientCity}";
-    document.querySelector('#field1648').value = "${recipientStreet}";
-    document.querySelector('#field1649').value = "${recipientHouse}";
-    document.querySelector('#field1650').value = "${recipientFlat}";
-    document.querySelector('#field1638').value = "${recipientName}";
-    document.querySelector('#field1639').value = "${recipientPhone}";
-    document.querySelector('#field1653').value = "${document.getElementById("deliveryData--comment").value}";
+    document.querySelector('#field1647').value = `${recipientCity}`;
+    document.querySelector('#field1648').value = `${recipientStreet}`;
+    document.querySelector('#field1649').value = `${recipientHouse}`;
+    document.querySelector('#field1650').value = `${recipientFlat}`;
+    document.querySelector('#field1638').value = `${recipientName}`;
+    document.querySelector('#field1639').value = `${recipientPhone}`;
+    document.querySelector('#field1653').value = `${document.getElementById(`deliveryData--comment`).value}`;
     document.querySelector('#field1640').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field1641 option[value="${document.getElementById("deliveryData-time").value}"]').selected = true;
     ${observer}
