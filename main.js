@@ -766,7 +766,7 @@ function createDelivery() {
     let item1;
     if ((document.querySelectorAll('.cartData__item').length) >= 1) {
         let cartRow = document.querySelector('.cartData__item:nth-child(1)');
-        item1 = `;document.querySelector('#field1657').value = "${cartRow.querySelector('.input-name').value.replaceAll('"', '&quot;'}";
+        item1 = `;document.querySelector('#field1657').value = "${cartRow.querySelector('.input-name').value.replaceAll('"', '&quot;')}";
         document.querySelector('#field1658').value = 1;
         document.querySelector('#field1659').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1660').value = 1;
@@ -824,7 +824,7 @@ function createDelivery() {
     } else { item5 = `console.log('5 позиции нет')` }
     
     return `
-    document.getElementById('description').textContent = "${document.getElementById("deliveryData--name").value.replaceAll('"', '&quot;'}";
+    document.getElementById('description').textContent = "${document.getElementById("deliveryData--name").value.replaceAll('"', '&quot;')}";
     document.getElementById('deadline').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field2393 option[value="${deliveryType}"]').selected = true;
     document.querySelector('#field1628').checked = ${document.getElementById("deliveryData--sender__external").checked};
