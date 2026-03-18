@@ -778,7 +778,7 @@ function createDelivery() {
     let item2;
     if ((document.querySelectorAll('.cartData__item').length) >= 2) {
         let cartRow = document.querySelector('.cartData__item:nth-child(2)');
-        item2 = `;document.querySelector('#field1664').value = "${cartRow.querySelector('.input-name').value}";
+        item2 = `;document.querySelector('#field1664').value = "${cartRow.querySelector('.input-name').value.replaceAll('"', `''`)}";
         document.querySelector('#field1665').value = 1;
         document.querySelector('#field1666').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1667').value = 1;
@@ -790,7 +790,7 @@ function createDelivery() {
     let item3;
     if ((document.querySelectorAll('.cartData__item').length) >= 3) {
         let cartRow = document.querySelector('.cartData__item:nth-child(3)');
-        item3 = `;document.querySelector('#field1671').value = "${cartRow.querySelector('.input-name').value}";
+        item3 = `;document.querySelector('#field1671').value = "${cartRow.querySelector('.input-name').value.replaceAll('"', `''`)}";
         document.querySelector('#field1672').value = 1;
         document.querySelector('#field1673').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1674').value = 1;
@@ -802,7 +802,7 @@ function createDelivery() {
     let item4;
     if ((document.querySelectorAll('.cartData__item').length) >= 4) {
         let cartRow = document.querySelector('.cartData__item:nth-child(4)');
-        item4 = `;document.querySelector('#field1678').value = "${cartRow.querySelector('.input-name').value}";
+        item4 = `;document.querySelector('#field1678').value = "${cartRow.querySelector('.input-name').value.replaceAll('"', `''`)}";
         document.querySelector('#field1679').value = 1;
         document.querySelector('#field1680').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1681').value = 1;
@@ -814,7 +814,7 @@ function createDelivery() {
     let item5;
     if ((document.querySelectorAll('.cartData__item').length) >= 5) {
         let cartRow = document.querySelector('.cartData__item:nth-child(5)');
-        item5 = `;document.querySelector('#field1685').value = "${cartRow.querySelector('.input-name').value}";
+        item5 = `;document.querySelector('#field1685').value = "${cartRow.querySelector('.input-name').value.replaceAll('"', `''`)}";
         document.querySelector('#field1686').value = 1;
         document.querySelector('#field1687').value = "${cartRow.querySelector('.input-cost').value}";
         document.querySelector('#field1688').value = 1;
@@ -848,7 +848,7 @@ function createDelivery() {
     document.querySelector('#field1650').value = "${recipientFlat}";
     document.querySelector('#field1638').value = "${recipientName}";
     document.querySelector('#field1639').value = "${recipientPhone}";
-    document.querySelector('#field1653').value = "${document.getElementById("deliveryData--comment").value}";
+    document.querySelector('#field1653').value = "${document.getElementById("deliveryData--comment").value.replaceAll('"', `''`)}";
     document.querySelector('#field1640').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
     document.querySelector('#field1641 option[value="${document.getElementById("deliveryData-time").value}"]').selected = true;
     ${observer}
