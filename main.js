@@ -758,8 +758,10 @@ function createDelivery() {
     }
 
     console.log(observer);
+    if (!senderExtrenal) {
     console.log(allShops[(document.getElementById("deliveryData--sender__id").value)-1].userId);
     console.log(allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName);
+    } 
 
     allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName;
 
