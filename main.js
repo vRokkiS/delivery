@@ -761,9 +761,8 @@ function createDelivery() {
     if (!senderExtrenal) {
     console.log(allShops[(document.getElementById("deliveryData--sender__id").value)-1].userId);
     console.log(allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName);
-    } 
-
     allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName;
+    } 
 
     let item1;
     if ((document.querySelectorAll('.cartData__item').length) >= 1) {
