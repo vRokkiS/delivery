@@ -71,6 +71,7 @@
 	
 	<header class="mainHeader deliveryStylesheet">
 		<nav>
+			<h1>ЕСЛИ ТЫ ВИДИШЬ ЭТУ НАДПИСЬ - ЗНАЧИТ СЕЙЧАС САЙТ ПРЕТЕРПЕВАЕТ ИЗМЕНЕНИЯ. НЕ ПОЛЬЗУЙСЯ ИМ (пока что потом конечно пользуйся). С любовью, Олег
 			<a href="#" id="toggleDelivery" class="active" onclick="goTo('delivery')">Создание доставки</a>
 			<a href="#" id="toggleTMZ" style="margin-left: 20px" onclick="goTo('tmz')">Редактор ТМЦ</a>
 		</nav>
@@ -358,22 +359,21 @@
 					</h3>
 				</section>
 
-				<div id="pdf--areaFolder" class="pdf--areaFolder hide">
+				<div id="pdf--areaFolder" class="pdf--areaFolder">
 					<article id="pdf--area" class="pdf--area pdf--fixedHeight">
 						<header class="pdf--mainInformationHeader">
 							<section class="pdf--shipper">
 								<span>Грузоотправитель</span>
-								<div id="i1" class="pdf--line-field pdf--editable" data-caption="(наименование организации-грузоотправителя, ИНН, КПП, адрес, телефон)" >Общество с ограниченной ответственностью "Носимо", ИНН 7701349057, КПП 774950001, телефон: 8 800 700-00-88, 105066, Россия, Москва, ул. Спартаковская, дом № 21, SMSG_СПб_БОЛЬШОЙ_ПРОСПЕКТ</div>
+								<div id="i1" class="pdf--line-field pdf--editable" data-caption="(наименование организации-грузоотправителя, ИНН, КПП, адрес, телефон)" >Общество с ограниченной ответственностью 'Носимо', ИНН 7701349057, КПП 774950001, телефон: 8 800 700-00-88, 105066, г. Москва, вн.тер.г. муниципальный округ Хорошёво-Мнёвники, пр-д Причальный, д.2 4 этаж пом. XIX, корпус 16</div>
 							</section>
 							<section class="pdf--carrier">
 								<span>Грузоперевозчик</span>
-								<div class="pdf--line-field pdf--editable" data-caption="(наименование организации-грузоперевозчика, ИНН, КПП, адрес, телефон)" >ООО "АВЕРС"</div>
+								<div class="pdf--line-field pdf--editable" data-caption="(наименование организации-грузоперевозчика, ИНН, КПП, адрес, телефон)" >Общество с ограниченной ответственностью "АВЕРС", ИНН 5032261597, КПП 503201001, улица Садовая, д. 3, корп./ст. К. Б, кв./оф. этаж/офис 7/709, Московская область, р-н Одинцово</div>
 							</section>
 						</header>
 						
 						<header class="pdf--mainDocumentHeader">
 							<section class="pdf--title">
-								<svg id="barcode"></svg>
 								<h1>АКТ ПЕРЕДАЧИ ТОВАРНО-МАТЕРИАЛЬНЫХ ЦЕННОСТЕЙ</h1>
 							</section>
 							<section class="pdf--documentInfo">
@@ -398,19 +398,21 @@
 									<tr style="border-top: 1px solid black">
 										<td rowspan="2" style="border-left: 1px solid black">Номер по порядку</td>
 										<td colspan="4">Заказ</td>
-										<td colspan="2">Товар</td>
+										<td colspan="3">Товар</td>
 										<td rowspan="2">Единица измерения, наименование</td>
 										<td rowspan="2">Количество</td>
 										<td rowspan="2">Цена, руб. коп.</td>
 										<td rowspan="2">Сумма с учетом НДС, руб. коп.</td>
+										<td>Адрес доставки (грузополучателя)</td>
 									</tr>
 									<tr>
-										<td>Номер заказа</td>
-										<td>Номер накладной</td>
+										<td>Номер заявки IntraService</td>
+										<td>Номер заказа/чека</td>
 										<td>Поставщик, организация</td>
 										<td>Тип клиента</td>
-										<td>Наименование</td>
 										<td>Артикул</td>
+										<td>Наименование</td>
+										<td>IMEI / S/N</td>
 									</tr>
 									<tr style="font-size: 0.8em;">
 										<td style="border-left: 1px solid black; padding: 0;">1</td>
@@ -424,9 +426,26 @@
 										<td style="padding: 0;">9</td>
 										<td style="padding: 0;">10</td>
 										<td style="padding: 0;">11</td>
+										<td style="padding: 0;">12</td>
+										<td style="padding: 0;">13</td>
 									</tr>
 								</thead>
 								<tbody class="pdf--cartItems">
+									<tr class="pdf--item pdf--tdNoPadding">
+                                        <td class="pdf--editable" style="border-left: 1px solid black">${id}</td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${tmzSAP}</div></td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${tmzNumber}</div></td>
+                                        <td class="pdf--editable">ООО "НОСИМО"</td>
+                                        <td class="pdf--editable">Физ. лицо</td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${article}</div></td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${name}</div></td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${serial}</div></td>
+                                        <td class="pdf--editable">шт</td>
+                                        <td class="pdf--editable soft-pdf--editable pdf--quantity"><div>${quantity}</div></td>
+                                        <td class="pdf--editable soft-pdf--editable pdf--cost"><div>${cost}</div></td>
+                                        <td class="pdf--editable pdf--totalCost"><div>${quantity * cost}</div></td>
+                                        <td class="pdf--editable">${deliveryData--recipient__street + deliveryData--recipient__house}</td>
+                                    </tr>
 								</tbody>
 								<tfoot>
 									<tr>

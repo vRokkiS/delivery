@@ -334,22 +334,13 @@ const cart = {
             return 0;
         }
 
-        document.getElementById('i1').textContent = "Общество с ограниченной ответственностью 'Носимо', ИНН 7701349057, КПП 774950001, телефон: 8 800 700-00-88, 105066, Россия, Москва, ул. Спартаковская, дом № 21, " + allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName;
+        document.getElementById('i1').textContent = "Общество с ограниченной ответственностью 'Носимо', ИНН 7701349057, КПП 774950001, телефон: 8 800 700-00-88, 105066, г. Москва, вн.тер.г. муниципальный округ Хорошёво-Мнёвники, пр-д Причальный, д.2 4 этаж пом. XIX, корпус 16, " + allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName;
 
         const today = new Date();
         const formattedDate = formatDate(today).split('-');
 
         document.getElementById('i2').textContent = document.getElementById('tmzData--id').value
         document.getElementById('i3').textContent = formattedDate[2] + "." + formattedDate[1] + "." + formattedDate[0];
-
-        JsBarcode("#barcode", document.getElementById('tmzData--sap').value, {
-            format: "CODE128",
-            lineColor: "#000",
-            margin: 0,
-            width: 2,
-            height: 35,
-            displayValue: false
-        });
 
         const tmzSAP = document.getElementById('tmzData--sap').value;
         let tmzNumber = null;
@@ -379,16 +370,18 @@ const cart = {
             
             const row = `<tr class="pdf--item pdf--tdNoPadding">
                                         <td class="pdf--editable" style="border-left: 1px solid black">${id}</td>
-                                        <td class="pdf--editable soft-pdf--editable"><div>${tmzNumber}</div></td>
                                         <td class="pdf--editable soft-pdf--editable"><div>${tmzSAP}</div></td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${tmzNumber}</div></td>
                                         <td class="pdf--editable">ООО "НОСИМО"</td>
                                         <td class="pdf--editable">Физ. лицо</td>
-                                        <td class="pdf--editable soft-pdf--editable"><div>${name}</div></td>
                                         <td class="pdf--editable soft-pdf--editable"><div>${article}</div></td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${name}</div></td>
+                                        <td class="pdf--editable soft-pdf--editable"><div>${serial}</div></td>
                                         <td class="pdf--editable">шт</td>
                                         <td class="pdf--editable soft-pdf--editable pdf--quantity"><div>${quantity}</div></td>
                                         <td class="pdf--editable soft-pdf--editable pdf--cost"><div>${cost}</div></td>
                                         <td class="pdf--editable pdf--totalCost"><div>${quantity * cost}</div></td>
+                                        <td class="pdf--editable">${deliveryData--recipient__street + deliveryData--recipient__house}</td>
                                     </tr>`;
 
             tmzTable.insertAdjacentHTML('beforeend', row);
