@@ -537,12 +537,15 @@ function saveSizesToLocal() {
 const table = document.querySelector('.cartData__table');
 
 
+let timeInteval = '1956';
 
 document.addEventListener('DOMContentLoaded', () => {
     const intervalSelect = document.getElementById('deliveryData-time');    
     const timeFromFieldset = document.getElementById('time-from');
     const timeToFieldset = document.getElementById('time-to');
     const timeFieldset = document.getElementById('time-field');
+    const timeFrom = document.getElementById('deliveryData-time--from');
+    const timeTo = document.getElementById('deliveryData-time--to');
 
     function toggleCustomTimeFields() {
         if (intervalSelect.value === '2001') {
@@ -558,6 +561,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function checkInterval() {
+        const from = timeFrom.value;
+        const to = timeTo.value;
+
+        if (!from || !to) return;
+
+        const key = `${from}${to}`;
+        const matchedId = allTime[key] || '1956';
+
+        timeInteval = matchedId;
+    }
+
+    timeFrom.addEventListener('change', checkInterval);
+    timeTo.addEventListener('change', checkInterval);
     intervalSelect.addEventListener('change', toggleCustomTimeFields);
 
     toggleCustomTimeFields();
