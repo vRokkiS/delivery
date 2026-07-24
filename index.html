@@ -101,9 +101,10 @@
 							<legend><label for="deliveryData--date">Дата доставки</label></legend>
 							<input type="date" id="deliveryData--date">
 						</fieldset>
-						<fieldset style="width: 520px">
+						<fieldset style="width: 220px" id="time-field">
 							<legend><label for="deliveryData--time">Интервал доставки</label></legend>
 							<select id="deliveryData-time">
+								<option value="2001">Свой интервал</option>
 								<option value="1956">10:00 - 22:00 (весь день)</option>
 								<option value="1947">10:00 - 13:00 (утро)</option>
 								<option value="1950">10:00 - 16:00 (до 16:00)</option>
@@ -113,6 +114,40 @@
 								<option value="2017">16:00 - 22:00 (после 16:00)</option>
 								<option value="2028">19:00 - 22:00 (вечер)</option>
 							</select>
+						</fieldset>
+						<fieldset style="width: 130px" id="time-from">
+								<legend><label for="deliveryData-date--from">С</label></legend>
+								<select id="deliveryData-time--from">
+									<option value="110">10:00</option>
+									<option value="111">11:00</option>
+									<option value="112">12:00</option>
+									<option value="113">13:00</option>
+									<option value="114">14:00</option>
+									<option value="115">15:00</option>
+									<option value="116">16:00</option>
+									<option value="117">17:00</option>
+									<option value="118">18:00</option>
+									<option value="119">19:00</option>
+									<option value="120">20:00</option>
+									<option value="121">21:00</option>
+								</select>
+						</fieldset>
+						<fieldset style="width: 130px" id="time-to">
+								<legend><label for="deliveryData-date--to">До</label></legend>
+								<select id="deliveryData-time--to">
+									<option value="211">11:00</option>
+									<option value="212">12:00</option>
+									<option value="213">13:00</option>
+									<option value="214">14:00</option>
+									<option value="215">15:00</option>
+									<option value="216">16:00</option>
+									<option value="217">17:00</option>
+									<option value="218">18:00</option>
+									<option value="219">19:00</option>
+									<option value="220">20:00</option>
+									<option value="221">21:00</option>
+									<option value="222">22:00</option>
+								</select>
 						</fieldset>
 					</div>
 					<div class="deliveryData__row">
@@ -395,7 +430,7 @@
 						<section class="pdf--itemsTable">
 							<table>
 								<colgroup>
-							<col style="width: 38px;">  <col style="width: 132px;">  <col style="width: 95px;">  <col style="width: 95px;">  <col style="width: 57px;">  <col style="width: 321px;">  <col style="width: 132px;">  <col style="width: 57px;">  <col style="width: 57px;">  <col style="width: 76px;">  <col style="width: 83px;">  </colgroup>
+							<col style="width: 38px;">  <col style="width: 132px;">  <col style="width: 95px;">  <col style="width: 95px;">  <col style="width: 57px;">  <col style="width: 100px;"> <col style="width: 200px;"> <col style="width: 100px;">  <col style="width: 57px;">  <col style="width: 57px;">  <col style="width: 76px;">  <col style="width: 83px;"> <col style="width: 200px;"> </colgroup>
 								<thead>
 									<tr style="border-top: 1px solid black">
 										<td rowspan="2" style="border-left: 1px solid black">Номер по порядку</td>

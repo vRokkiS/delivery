@@ -52,6 +52,24 @@ async function loadShops() {
     }
 }
 
+let allTime = [];
+async function loadTime() {
+    try {
+        const response = await fetch('data/time.json');
+
+        if (!response.ok) {
+            throw new Error(`Ошибка загрузки: ${response.status} ${response.statusText}`);
+        }
+
+        allTime = await response.json();
+
+    } catch (error) {
+        console.error("Не удалось загрузить данные времени:", error);
+    }
+}
+
+loadTime();
+
 const senderSelect = document.getElementById('deliveryData--sender')
 senderSelect.addEventListener('change', (event) => {
     displayShopDetails(event);
@@ -517,6 +535,33 @@ function saveSizesToLocal() {
 }
 
 const table = document.querySelector('.cartData__table');
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const intervalSelect = document.getElementById('deliveryData-time');    
+    const timeFromFieldset = document.getElementById('time-from');
+    const timeToFieldset = document.getElementById('time-to');
+    const timeFieldset = document.getElementById('time-field');
+
+    function toggleCustomTimeFields() {
+        if (intervalSelect.value === '2001') {
+          timeFromFieldset.style.display = 'block';
+          timeToFieldset.style.display = 'block';
+          timeFieldset.style.width = 220;
+          timeFromFieldset.style.width = 130;
+          timeToFieldset.style.width = 130;
+        } else {
+          timeFromFieldset.style.display = 'none';
+          timeToFieldset.style.display = 'none';
+          timeFieldset.style.width = 520;
+        }
+    }
+
+    intervalSelect.addEventListener('change', toggleCustomTimeFields);
+
+    toggleCustomTimeFields();
+});
 
 table.addEventListener('input', (e) => {
     if (e.target.classList.contains('input-article')) {
