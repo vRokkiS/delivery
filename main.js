@@ -568,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!from || !to) return;
 
         const key = `${from}${to}`;
-        const matchedId = allTime[key] || '1956';
+        const matchedId = allTime[key] || '20056';
 
         timeInteval = matchedId;
     }
