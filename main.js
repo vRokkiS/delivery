@@ -222,6 +222,7 @@ const cart = {
 							<td><input type="number" class="input-id" value=""></input></td>
 							<td><input type="text" class="input-article" value="${article}"></input></td>
 							<td><input type="text" class="input-name" value="${name}"></input></td>
+                            <td><input type="number" class="input-serial" value=""></input></td>
 							<td><input type="number" class="input-quantity" value="${quantity}"></input></td>
 							<td><input type="number" class="input-cost" value="${cost}"></input></td>
 							<td><input type="number" class="input-width" value=""></input></td>
@@ -365,6 +366,7 @@ const cart = {
             const name = item.querySelector('.input-name').value;
             const quantity = item.querySelector('.input-quantity').value;
             const cost = item.querySelector('.input-cost').value;
+            const serial = item.querySelector('.input-serial').value;
             const address = document.getElementById('deliveryData--recipient__street').value + ' ' + document.getElementById('deliveryData--recipient__house').value
             totalQuantity += parseInt(quantity);
             totalCost += parseInt(quantity * cost);
