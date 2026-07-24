@@ -821,6 +821,15 @@ function createDelivery() {
     console.log(allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName);
     allShops[(document.getElementById("deliveryData--sender__id").value)-1].officialName;
     } 
+    
+    let time = '0'
+
+    if (document.getElementById('deliveryData-time').value === '2001') {
+        time = timeInteval;
+    } else {
+        time = document.getElementById("deliveryData-time").value;
+    }
+    
 
     let item1;
     if ((document.querySelectorAll('.cartData__item').length) >= 1) {
@@ -909,7 +918,7 @@ function createDelivery() {
     document.querySelector('#field1639').value = "${recipientPhone}";
     document.querySelector('#field1653').value = "${document.getElementById("deliveryData--comment").value.replaceAll('"', `''`)}";
     document.querySelector('#field1640').value = "${deliveryDate[2]}.${deliveryDate[1]}.${deliveryDate[0]} 23:59";
-    document.querySelector('#field1641 option[value="${document.getElementById("deliveryData-time").value}"]').selected = true;
+    document.querySelector('#field1641 option[value="${time}"]').selected = true;
     ${observer}
     ${item1}
     ${item2}
