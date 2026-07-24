@@ -365,6 +365,7 @@ const cart = {
             const name = item.querySelector('.input-name').value;
             const quantity = item.querySelector('.input-quantity').value;
             const cost = item.querySelector('.input-cost').value;
+            const address = item.querySelector('#deliveryData--recipient__street' + ' ' + '#deliveryData--recipient__house')
             totalQuantity += parseInt(quantity);
             totalCost += parseInt(quantity * cost);
             
@@ -381,7 +382,7 @@ const cart = {
                                         <td class="pdf--editable soft-pdf--editable pdf--quantity"><div>${quantity}</div></td>
                                         <td class="pdf--editable soft-pdf--editable pdf--cost"><div>${cost}</div></td>
                                         <td class="pdf--editable pdf--totalCost"><div>${quantity * cost}</div></td>
-                                        <td class="pdf--editable">${deliveryData--recipient__street + deliveryData--recipient__house}</td>
+                                        <td class="pdf--editable">${address}</td>
                                     </tr>`;
 
             tmzTable.insertAdjacentHTML('beforeend', row);
