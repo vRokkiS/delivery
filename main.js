@@ -365,7 +365,7 @@ const cart = {
             const name = item.querySelector('.input-name').value;
             const quantity = item.querySelector('.input-quantity').value;
             const cost = item.querySelector('.input-cost').value;
-            const address = item.querySelector('#deliveryData--recipient__street' + ' ' + '#deliveryData--recipient__house')
+            const address = document.getElementById('deliveryData--recipient__street').value + ' ' + document.getElementById('deliveryData--recipient__house').value
             totalQuantity += parseInt(quantity);
             totalCost += parseInt(quantity * cost);
             
