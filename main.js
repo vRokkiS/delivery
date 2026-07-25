@@ -171,27 +171,6 @@ function displayShopDetails(element) {
     }
 }
 
-const reasonSelect = document.getElementById('tmzData--reason')
-reasonSelect.addEventListener('change', (event) => {
-    const selectedValue = event.target.value;
-    
-    if (selectedValue == 1) { // CRM
-        document.querySelector('.tmzData--crm__field').classList.remove('hide');
-        document.querySelector('.tmzData--id__field').classList.remove('hide');
-        document.getElementById('tmzData--id').placeholder = "SSB26Y00000020";
-    } else if (selectedValue == 2) { // ЧЕК
-        document.querySelector('.tmzData--crm__field').classList.add('hide');
-        document.querySelector('.tmzData--id__field').classList.remove('hide');
-        document.getElementById('tmzData--id').placeholder = "SSB26Y000000000000000079";
-    } else if (selectedValue == 3) { // РЕАЛИЗАЦИЯ
-        document.querySelector('.tmzData--crm__field').classList.add('hide');
-        document.querySelector('.tmzData--id__field').classList.remove('hide');
-        document.getElementById('tmzData--id').placeholder = "SSB26Y00009";
-    }
-});
-
-
-
 const cart = {
     deletedStorage: [],
 
@@ -240,7 +219,7 @@ const cart = {
 							<td><input type="number" class="input-id" value=""></input></td>
 							<td><input type="text" class="input-article" value="${article}"></input></td>
 							<td><input type="text" class="input-name" value="${name}"></input></td>
-                            <td><input type="number" class="input-serial" value=""></input></td>
+                            <td><input type="text" class="input-serial" value=""></input></td>
 							<td><input type="number" class="input-quantity" value="${quantity}"></input></td>
 							<td><input type="number" class="input-cost" value="${cost}"></input></td>
 							<td><input type="number" class="input-width" value=""></input></td>
@@ -333,21 +312,13 @@ const cart = {
     updateTMZ() {
         this.update();
         
-        const TMZreason = document.getElementById('tmzData--reason').value;
-
-        if (document.getElementById('tmzData--id').value == "") {
-            pushNotifyIDError();
-            error;
-            return 0;
-        }
-
         if (document.getElementById('tmzData--sap').value == "") {
             pushNotifySAPError();
             error;
             return 0;
         }
 
-        if ((document.getElementById('tmzData--crm').value == "") & (TMZreason == 1)) {
+        if (document.getElementById('tmzData--crm').value == "") {
             pushNotifyCRMError();
             error;
             return 0;
@@ -358,17 +329,10 @@ const cart = {
         const today = new Date();
         const formattedDate = formatDate(today).split('-');
 
-        document.getElementById('i2').textContent = document.getElementById('tmzData--id').value
         document.getElementById('i3').textContent = formattedDate[2] + "." + formattedDate[1] + "." + formattedDate[0];
 
         const tmzSAP = document.getElementById('tmzData--sap').value;
-        let tmzNumber = null;
-        if (TMZreason == 1) {
-            tmzNumber = document.getElementById('tmzData--crm').value
-        } else {
-            tmzNumber = document.getElementById('tmzData--id').value
-        }
-        
+        const tmzNumber = document.getElementById('tmzData--crm').value;
         const cartItems = document.querySelectorAll('.cartData__item');
         const tmzTable = document.querySelector('.pdf--cartItems');
         const tmzItems = document.querySelectorAll('.pdf--item');
@@ -673,15 +637,6 @@ document.addEventListener('DOMContentLoaded', () => {
         mask: '{4}-000-00000',
         lazy: true
     })
-
-    JsBarcode("#barcode", "0000000", {
-        format: "CODE128",
-        lineColor: "#000",
-        margin: 0,
-        width: 2,
-        height: 35,
-        displayValue: false
-    });
 
     const futureDate = new Date();
     futureDate.setDate(futureDate.getDate() + 1);

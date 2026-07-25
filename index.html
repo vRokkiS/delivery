@@ -93,7 +93,7 @@
 					<div class="deliveryData__row">
 						<fieldset style="width: 820px">
 							<legend><label for="deliveryData--name">Название заявки</label></legend>
-							<input type="text" id="deliveryData--name" placeholder="Просьба доставить 65QN70F клиенту на 12.02" autocomplete="off">
+							<input type="text" id="deliveryData--name" value="Просьба доставить " autocomplete="off">
 						</fieldset>
 					</div>
 					<div class="deliveryData__row">
@@ -188,31 +188,15 @@
 					<span style="margin-left: 5px;">Данные для акта</span>
 				</h2>
 				<section class="tmzData__table">
-					<div class="tmzData__row">
-						<fieldset style="width: 820px;">
-							<legend><label for="tmzData--reason">Основание</label></legend>
-							<select id="tmzData--reason">
-								<option value="1">CRM-заказ</option>
-								<option value="2">Чек ККМ</option>
-								<option value="3">Реализация</option>
-							</select>
-						</fieldset>
-					</div>
 					<div class="tmzData__row tmzData--crm__field">
 						<fieldset style="width: 820px;">
-							<legend><label for="tmzData--crm">Номер заказа CRM</label></legend>
+							<legend><label for="tmzData--crm">Номер заказа / чека</label></legend>
 							<input type="text" id="tmzData--crm" placeholder="4-266-62493" autocomplete="off">
-						</fieldset>
-					</div>
-					<div class="tmzData__row tmzData--id__field">
-						<fieldset style="width: 820px;">
-							<legend><label for="tmzData--id">Номер документа</label></legend>
-							<input type="text" id="tmzData--id" placeholder="SSB25Y000372" autocomplete="off">
 						</fieldset>
 					</div>
 					<div class="tmzData__row tmzData--sap__field">
 						<fieldset style="width: 820px;">
-							<legend><label for="tmzData--sap">Код SAP или Номер заявки в IS</label></legend>
+							<legend><label for="tmzData--sap">Номер заявки в IntraService</label></legend>
 							<input type="text" maxlength="7" id="tmzData--sap" placeholder="4114255" autocomplete="off">
 						</fieldset>
 					</div>
@@ -420,7 +404,7 @@
 										<td>Дата составления</td>
 									</tr>
 									<tr class="pdf--tdNoPadding">
-										<td class="pdf--editable soft-pdf--editable" style="border-left: 1px solid black"><div id="i2">SSB25Y00000000000003924</div></td>
+										<td class="pdf--editable soft-pdf--editable" style="border-left: 1px solid black"><div id="i2">б/н</div></td>
 										<td class="pdf--editable"><div id="i3">01.12.2025</div></td>
 									</tr>
 								</table>
@@ -486,8 +470,8 @@
 							</table>
 						</section>
 						<section class="pdf--tableDescription">
-							<section class="pdf--descRow">Акт имеет приложение на <div style="text-align: center; padding-bottom: 3px;" class="pdf--line-field pdf--line pdf--editable" data-caption="">1</div> листах</section>
-							<section class="pdf--descRow">и содержит <div id="i8" style="text-align: center; padding-bottom: 1px;" class="pdf--line-field pdf--line pdf--editable" data-caption="(прописью)"></div> порядковый номер записей</section>
+							<section class="pdf--descRow">Акт составлен на <div style="text-align: center; padding-bottom: 3px;" class="pdf--line-field pdf--line pdf--editable" data-caption="">1</div> листах</section>
+							<section class="pdf--descRow">и содержит <div id="i8" style="text-align: center; padding-bottom: 1px;" class="pdf--line-field pdf--line pdf--editable" data-caption="(прописью)"></div> товарных позиций</section>
 							<section class="pdf--descRow">Всего отпущено мест <div id="i9" style="text-align: center; padding-bottom: 2px;" class="pdf--line-field pdf--line pdf--editable" data-caption="(прописью)"></div></section>
 							<section class="pdf--descRow">на сумму <div id="i10" style="text-align: center; padding-bottom: 2px;" class="pdf--line-field pdf--line pdf--editable" data-caption="(прописью)"></div> руб. <div class="pdf--line-field pdf--line pdf--editable" style="width: 50px"></div> коп.</section>
 						</section>
