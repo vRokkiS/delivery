@@ -1,0 +1,309 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание доставки</title>
+	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon.png">
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/learn_style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+	<script src="learn_hint.js" defer></script>
+	<script src="rubles.min.js" defer></script>
+	<script src="learn.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-notify/dist/simple-notify.min.js"></script>
+
+    <script src="JsBarcode.all.min.js"></script>
+	<script src="https://unpkg.com/imask"></script>
+</head>
+<body>
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<symbol id="icon-user" viewBox="0 0 24 24">
+			<path fill="#fff" d="M10.49 2.23006L5.50003 4.10005C4.35003 4.53005 3.41003 5.89004 3.41003 7.12004V14.55C3.41003 15.73 4.19005 17.28 5.14005 17.99L9.44003 21.2001C10.85 22.2601 13.17 22.2601 14.58 21.2001L18.88 17.99C19.83 17.28 20.61 15.73 20.61 14.55V7.12004C20.61 5.89004 19.67 4.53005 18.52 4.10005L13.53 2.23006C12.68 1.92006 11.32 1.92006 10.49 2.23006Z" stroke="#005389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			<path fill="#005389" d="M12.0001 10.92C11.9601 10.92 11.9101 10.92 11.8701 10.92C10.9301 10.89 10.1801 10.11 10.1801 9.16003C10.1801 8.19003 10.9701 7.40002 11.9401 7.40002C12.9101 7.40002 13.7001 8.19003 13.7001 9.16003C13.6901 10.12 12.9401 10.89 12.0001 10.92Z" stroke="#005389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			<path fill="#005389" d="M10.01 13.72C9.05004 14.36 9.05004 15.41 10.01 16.05C11.1 16.78 12.89 16.78 13.98 16.05C14.94 15.41 14.94 14.36 13.98 13.72C12.9 12.99 11.11 12.99 10.01 13.72Z" stroke="#005389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+		</symbol>
+
+		<symbol id="icon-speed" viewBox="0 0 24 24">
+			<path fill="#fff" d="M10.49 2.23006L5.50003 4.10006C4.35003 4.53006 3.41003 5.89006 3.41003 7.12006V14.5501C3.41003 15.7301 4.19005 17.2801 5.14005 17.9901L9.44003 21.2001C10.85 22.2601 13.17 22.2601 14.58 21.2001L18.88 17.9901C19.83 17.2801 20.61 15.7301 20.61 14.5501V7.12006C20.61 5.89006 19.67 4.53006 18.52 4.10006L13.53 2.23006C12.68 1.92006 11.32 1.92006 10.49 2.23006Z" stroke="#005389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			<path fill="#fff" d="M12 15.5C14.2091 15.5 16 13.7091 16 11.5C16 9.29086 14.2091 7.5 12 7.5C9.79086 7.5 8 9.29086 8 11.5C8 13.7091 9.79086 15.5 12 15.5Z" stroke="#005389" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+			<path fill="#fff" d="M12.25 10.25V11.18C12.25 11.53 12.07 11.86 11.76 12.04L11 12.5" stroke="#005389" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+		</symbol>
+
+		<symbol id="icon-prec" viewBox="0 0 24 24">
+			<path fill="#fff" d="M20.91 11.12C20.91 16.01 17.36 20.59 12.51 21.93C12.18 22.02 11.82 22.02 11.49 21.93C6.63996 20.59 3.08997 16.01 3.08997 11.12V6.72997C3.08997 5.90997 3.70998 4.97998 4.47998 4.66998L10.05 2.39001C11.3 1.88001 12.71 1.88001 13.96 2.39001L19.53 4.66998C20.29 4.97998 20.92 5.90997 20.92 6.72997L20.91 11.12Z" stroke="#005389" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			<path fill="#fff" d="M12 12.5C13.1046 12.5 14 11.6046 14 10.5C14 9.39543 13.1046 8.5 12 8.5C10.8954 8.5 10 9.39543 10 10.5C10 11.6046 10.8954 12.5 12 12.5Z" stroke="#005389" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+			<path fill="#fff" d="M12 12.5V15.5" stroke="#005389" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+		</symbol>
+	</svg>
+
+	<a href="index.html">
+	<article class="returnBackfield">
+		<span class="returnBack">Вернуться в редактор</span>
+	</article>
+	</a>
+	
+
+	<header class="hi">
+		<div class="title"><img src="media/favicon.png" width="32px"><h1>Создание доставки</h1></div>
+		<h2>Что это? Зачем оно? Как пользоваться? Разберемся тут.</h2>
+		
+	</header>
+	<main>	
+
+		<div class="mainDivs">
+			<h2>Привет</h2>
+			<section>
+				Ты находишься в разделе с полезной информацией для сайта <span class="hint" onclick="i1()">автоматического</span> создания и заполнения документов для реализации доставок. Прежде познакомимся с подсказками, я использовал их что бы разгрузить текст и добавить интерактива. <span class="hint" onclick="hello()">Нажми на меня что бы ознакомиться с ними</span>. Пока не забыл - <span class="hint" onclick="i2()">ещё кое-что!</span>
+			</section>
+		</div>
+
+		<button type="button" class="accordion-btn" data-content="advantages">Преимущества использования генератора доставок</button>
+		<div class="accordion-content" data-content="advantages">	
+			<section class="adv_field mainDivs">
+				<div class="adv">
+					<svg width="96" height="96"><use href="#icon-user"></use></svg>
+					<h2 style="color: #005389; font-weight: 800;">Безопасность</h2>
+					<p>Я сам любитель покопаться в чужом коде в поиске возможностей использовать информацию так, как это изначально не рассчитано. Вся доступная на сервисе информация чистая и не может принести никакого вреда, поэтому мне совсем не страшно, что наш рабочий ресурс находится в открытом доступе</p>
+				</div>
+				<div class="adv">
+					<svg width="96" height="96"><use href="#icon-speed"></use></svg>
+					<h2 style="color: #005389; font-weight: 800;">Скорость и удобство</h2>
+					<p>Коллеги участвовавшие в тестировании сервиса отмечают очевидный факт - использовать такой метод создания заявок быстро и удобно. Вам больше не нужно выбирать время доставки из ста вариантов, помнить адреса и номера телефонов магазинов, а для создания акта ТМЦ требуется только номер заявки и номер чека</p>
+				</div>
+				<div class="adv">
+					<svg width="96" height="96"><use href="#icon-prec"></use></svg>
+					<h2 style="color: #005389; font-weight: 800;">Безупречность</h2>
+					<p>Я рекомендую всегда проверять данные, которые вводятся при автоматическом заполнении заявки в IntraService, только лишь затем, что бы не остаться крайним. Однако за все время использования не было допущено ни одной ошибки, которая помешала бы организовать доставку</p>
+				</div>
+			</section>
+		</div>
+
+		<button type="button" class="accordion-btn" data-content="howCreateTicket">Как создать заявку</button>
+
+		<div class="accordion-content is-open" data-content="howCreateTicket">
+			<div class="mainDivs">
+			<section>
+				Все поля сайта подвязаны к соответствующим формам на сайте IntraService, важно это или нет, но я подсвечу соответствие каждого поля сайта с полями IS
+				
+				<h2 style="margin-top: 10px; margin-bottom: 20px;">Данные для доставки</h2>
+
+				<div class="table-container">
+					<table class="custom-table">
+						<thead>
+							<tr>
+								<th>Название поля в Delivery</th>
+								<th>Соответствие полей в IS</th>
+								<th>Комментарий</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Название заявки</td>
+								<td>Описание</td>
+								<td><span class="hint" onclick="i4()">Рекомендую</span></td>
+							</tr>
+							<tr>
+								<td>Дата доставки</td>
+								<td>Срок, Отправитель-Дата отгрузки, Получатель-Дата доставки</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Интервал доставки</td>
+								<td>Получатель-Интервал времени</td>
+								<td><span class="hint" onclick="i5()">Можно</span></td>
+							</tr>
+							<tr>
+								<td>Отправитель</td>
+								<td>Наименование отправителя</td>
+								<td><span class="hint" onclick="i3()">Нюанс</span></td>
+							</tr>
+							<tr>
+								<td>Получатель</td>
+								<td>Наименование получателя</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Наблюдатель</td>
+								<td>Наблюдатели</td>
+								<td><span class="hint" onclick="i6()">Отправитель</span></td>
+							</tr>
+							<tr>
+								<td>Комментарий к заявке</td>
+								<td>Комментарий к заявке</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h2 style="margin-top: 20px; margin-bottom: 10px;">Товары к доставке</h2>
+
+				<p>Добавить товар к доставке можно 3 способами (<span class="hint" onclick="i7()">нюанс</span>):</p>
+				<p style="color: #bb0202">1. Провалившись в проведённый чек ККМ можно скопировать строку товара, таким образом автоматически заполняется Артикул, Наименование, Кол-во, Цена.</p>
+				<p style="color: #bb0202">2. Провалившись в реализацию, можно скопировать строку с товаром, таким образом автоматически заполняется Наименование, Цена, Кол-во, Цена.</p>
+				<p>3. Нажав правую кнопку мыши по свободному месту на странице можно добавить строку, где все параметры нужно прописывать вручную: это самый долгий, но надёжный способ добавить товар.</p>
+
+				<p style="margin: 10px 0 20px 0">После того, как вы добавили нужное количество товаров (максимум 5, по логике IS) заполните соответствующие поля.</p>
+				<div class="table-container">
+					<table class="custom-table">
+						<thead>
+							<tr>
+								<th>Название поля в Delivery</th>
+								<th>Соответствие полей в IS / ТМЦ</th>
+								<th>Комментарий</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>№</td>
+								<td>№</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Артикул</td>
+								<td>* / Артикул</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Наименование</td>
+								<td>Описание груза / Наименование</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>IMEI / Serial</td>
+								<td>* / IMEI, S/N</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Кол-во</td>
+								<td>Кол-во коробов / Количество</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Цена</td>
+								<td>Оцен. стоимость кор. / Цена, руб. коп.</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Ш, В, Г</td>
+								<td>Ширина, высота, глубина груза в IS</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Кнопочка</td>
+								<td>Не имеет аналогов</td>
+								<td>Для выделения и удаления через контекстное меню</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h2 style="margin-top: 20px; margin-bottom: 10px;">Отправитель и получатель</h2>
+
+				Без сюрпризов, обратите внимание на то, что данные магазинов вручную на сайте поменять нельзя, при необходимости вы можете поменять их на IntraService. При более серьезных изменениях стоит писать мне обратную связь. Заполнение индекса не обязательно :)
+
+				<h2 style="margin-top: 20px; margin-bottom: 10px;">Создать заявку</h2>
+
+				При нажатии на кнопку вам в буфер обмена копируется код, который нужно вставить на сайт IntraService. Для понимающих - это просто JS код, который нужно вставить в консоль во вкладке отладки страницы. Для простоты использования я в том числе создал расширение для браузера, которое позволяет совершить этот маневр одним нажатием, подробнее об установке этого расширения можно прочитать ниже по тексту
+
+			</section>
+			</div>
+		</div>
+
+		<button type="button" class="accordion-btn" data-content="howCreateTMZ">Как создать акт ТМЦ</button>
+
+		<div class="accordion-content is-open" data-content="howCreateTMZ">
+			<div class="mainDivs">
+			<section>
+				<h2>Данные для акта</h2>
+
+				На текущий момент доступно заполнение двух полей, понять которые очень просто, с этим не должны возникнуть трудности. Заполнение этих полей является обязательным, без этого дальше я вас не пущу
+
+				<h2 style="margin-top: 10px;">Предпросмотр и ручное редактирование акта</h2>
+
+				При заполнении данных акта и товаров к доставке вы можете открыть предпросмотр акта нажав на картинку справа в интерфейсе. Провалившись туда вы сможете убедиться, что документ заполнен верно и при необходимости воспользоваться ручным редактированием. Поля доступные к редактированию подсветятся нежным голубым цветом, дерзайте
+
+				<h2 style="margin-top: 10px;">Скачать акт PDF</h2>
+
+				Скачиваем, печатаем, отправляем, наслаждаемся благами цифровизации
+
+			</section>
+			</div>
+		</div>
+
+		<button type="button" class="accordion-btn" data-content="Extension">Как установить расширение для браузера</button>
+
+		<div class="accordion-content is-open" data-content="Extension">
+			<div class="mainDivs">
+			<section>
+				<h2>Как установить расширение</h2>
+
+				<a href="download/injector.rar" download>Скачайте расширение</a>, разархивируйте его и следуйте следующим инструкциям
+
+				<h3 style="font-weight: 500; margin-top: 10px;">Yandex Browser: </h3>
+				<ul>
+					<li>1. Вставьте в адресную строку <strong>browser://extensions</strong> и нажмите Enter</li>
+					<li>2. Включите «Режим разработчика» в правом верхнем углу</li>
+					<li>3. Нажмите кнопку «Загрузить распакованное расширение» слева вверху</li>
+					<li>4. Выберите папку с расширением (внутри должен лежать файл manifest.json)</li>
+					<li>5. Для удобства закрепите расширение в закладках</li>
+				</ul>
+
+				<h3 style="font-weight: 500; margin-top: 10px">Chrome:</h3>
+				<ul>
+					<li>1. Вставьте в адресную строку <strong>chrome://extensions</strong> и нажмите Enter</li>
+					<li>2. Включите «Режим разработчика» в правом верхнем углу</li>
+					<li>3. Нажмите кнопку «Загрузить распакованное расширение» слева вверху</li>
+					<li>4. Выберите папку с расширением (внутри должен лежать файл manifest.json)</li>
+					<li>5. Для удобства закрепите расширение на панели инструментов (иконка пазла)</li>
+				</ul>
+
+				<h3 style="font-weight: 500; margin-top: 10px">Другие браузеры:</h3>
+
+				Инструкции примерно одинаковые - зайти в расширения - включить режим разработчика - загрузить - закрепить. дерзайте
+			</section>
+			</div>
+		</div>
+
+		<button type="button" class="accordion-btn" data-content="Future">Список потенциальных идей</button>
+
+		<div class="accordion-content" data-content="Future">
+			<div class="mainDivs">
+			<section>
+				<h2>Импорт / Экспорт / Синхронизация размеров товаров</h2>
+
+				Наверное интересно? Может быть полезно, особенно если автоматизировать. Не имею представления о реализации, но может быть интересно
+
+				<h2 style="margin-top: 10px">Автоматическое создание заявок</h2>
+
+				Я против. Это небезопасно. Но возможно
+
+				<h2 style="margin-top: 10px">База данных с доставками для контроля ТК</h2>
+
+				Это интересно. Даёт смысл строчке "номер документа", а в будущем позволит проверять насколько хорошо ТК отрабатывают. Полезно. Сложно, но возможно
+	
+			</section>
+			</div>
+		</div>
+
+		<button type="button" class="accordion-btn" data-content="Feedback">Обратная связь</button>
+
+		<div class="accordion-content" data-content="Feedback">
+			<div class="mainDivs">
+			<section>
+				<h2>GitHub</h2>
+				Я ухожу. Вернее, я уже ушёл, а это значит, что проект от первого лица вести я не смогу, однако вы можете сделать его своим, если разберетесь в том, как он работает. Вот вам <a href="https://github.com/vRokkiS/delivery">ссылка</a> на GitHub, открывайте, смотрите, удивляйтесь, плачьте, грустите, злитесь, разочаровывайтесь, восхищайтесь, возбуждайтесь (в приличном смысле) и наслаждайтесь моим творением. Если у вас возникнут вопросы, вы всегда (не уверен) можете найти меня, спросив мои контакты у ребят с Большого
+
+				<section style="margin-top: 25px; background-color: #ffcfcf; padding: 25px; border-radius: 12px;">Спасибо. Правда. Спасибо всем, кто был рядом со мной за это время, спасибо коллегам, которые пользовались сайтом во времена, когда он ещё не был так прост и понятен. Лида, прости что тебе приходилось вручную убирать кучу наблюдателей, лес рубят - щепки летят. Спасибо всем, всех люблю, всем удачи!</section>
+	
+			</section>
+			</div>
+		</div>
+			  
+	</main>
+</body>
+</html>

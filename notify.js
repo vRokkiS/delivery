@@ -40,17 +40,7 @@ function pushNotifyDeletedDB() {
 function pushNotifySAPError() {
     new Notify({
         status: 'error',
-        text: 'Введите код SAP',
-        speed: 200,
-        autotimeout: 1000,
-        position: 'right top',
-    })
-}
-
-function pushNotifyIDError() {
-    new Notify({
-        status: 'error',
-        text: 'Введите номер документа',
+        text: 'Введите код IntraService',
         speed: 200,
         autotimeout: 1000,
         position: 'right top',
